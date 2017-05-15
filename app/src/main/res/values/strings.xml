@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Ritzy</string>
+    <string name="server_error">Server not responding. Please try again later</string>
+</resources>
