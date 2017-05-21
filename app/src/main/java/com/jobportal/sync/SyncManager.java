@@ -16,7 +16,7 @@ public class SyncManager implements DownloadListener, ParseListener {
     private SyncListener listener;
     private int type;
     private Utilities utilities;
-    public static final int ALL_CHANNEL = 1, TV_MOST_POPULAR = 2, GENRES = 3;
+    public static final int ALL_ROLES = 1, TOP_ROLES = 2, LOGIN = 3, REGISTRATION = 4;
 
 
     public SyncManager(Context context, int type, SyncListener listener) {

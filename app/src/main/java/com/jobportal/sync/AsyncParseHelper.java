@@ -32,7 +32,7 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
         String response = params[0];
         try {
             switch (taskId) {
-                case SyncManager.ALL_CHANNEL:
+                case SyncManager.ALL_ROLES:
                   /*  Channel channel = new Channel(context);
                     ArrayList<Channel> alChannel = new ArrayList<Channel>();
                     try {

@@ -10,9 +10,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -56,6 +59,7 @@ public class Utilities {
     private SharedPreferences.Editor toEdit;
     public static SimpleDateFormat ddmmyyyy = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     public static SimpleDateFormat yyyymmdd = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    public static String sTagFragment;
 
     public Utilities(Context context) {
         this.context = context;
@@ -339,4 +343,30 @@ public class Utilities {
         return "0099867E319B";
     }
 
+    /**
+     * Replace fragment and set title with resource id mentioned in string.xml
+     *
+     * @param mActivity
+     * @param mFragment
+     * @param resID
+     */
+    public void replaceFragment(FragmentActivity mActivity, android.support.v4.app.Fragment mFragment, int resID) {
+        if (mActivity != null && context != null) {
+            String strTitle = context.getString(resID);
+            sTagFragment = strTitle;
+            mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mFragment, sTagFragment).commit();
+        }
+    }
+
+    /**
+     * Set color to view
+     *
+     * @param mContext
+     * @param mView
+     * @param mColor
+     */
+    public void setViewColor(Context mContext, View mView, int mColor) {
+        GradientDrawable bgShape = (GradientDrawable) mView.getBackground();
+        bgShape.setColor(ContextCompat.getColor(mContext, mColor));
+    }
 }

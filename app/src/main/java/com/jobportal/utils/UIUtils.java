@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jobportal.R;
-import com.jobportal.constants.AppConstants;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -27,21 +26,7 @@ public class UIUtils {
     public static DateFormat formatedDate = new SimpleDateFormat("yyyy-MM-dd");
     private ProgressDialog pgdialog;
 
-    /**
-     * Show progress dialog
-     *
-     * @param message
-     */
-    public void showProgressDialog(String message) {
-        if (pgdialog != null)
-            if (pgdialog.isShowing()) {
-                pgdialog.dismiss();
-                pgdialog.cancel();
-            }
-        pgdialog = ProgressDialog.show(AppConstants.getInstance().getContext(),
-                AppConstants.getInstance().getContext().getString(R.string.app_name), message, true);
 
-    }
 
     /**
      * Show progress dialog
@@ -90,9 +75,9 @@ public class UIUtils {
     }
 
     // hide soft keyboard
-    public static void hideKeyboard(View editText) {
+    public static void hideKeyboard(Context context, View editText) {
         try {
-            InputMethodManager imm = (InputMethodManager) AppConstants.getInstance().getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(
                     editText.getWindowToken(),
                     0);
