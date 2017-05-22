@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setListeners();
         setUpNavigationView();
         setRolesAdapter();
-        mUtilities.replaceFragment(this, new FragmentHome(), R.string.hello_fragment);
+        mUtilities.replaceFragment(this, new FragmentHome(), R.string.hello_fragment, false);
     }
 
     private void setListeners() {

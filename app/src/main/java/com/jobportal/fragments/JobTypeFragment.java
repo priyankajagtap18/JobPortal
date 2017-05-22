@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jobportal.R;
-import com.jobportal.adapters.TopRoleAdapter;
+import com.jobportal.adapters.JobListAdapter;
 import com.jobportal.constants.AppConstants;
 import com.jobportal.entities.TopRoles;
 import com.jobportal.helpers.Utilities;
@@ -17,15 +17,17 @@ import com.jobportal.listeners.AdapterResponseInterface;
 
 import java.util.ArrayList;
 
+/**
+ * Created by pita on 5/22/2017.
+ */
+public class JobTypeFragment extends Fragment {
 
-public class FragmentHome extends Fragment implements View.OnClickListener {
-
-    private TopRoleAdapter adapter;
-    private RecyclerView mRvRoles;
+    private JobListAdapter adapter;
+    private RecyclerView mRvJobList;
     private Utilities mUtilities;
     private ArrayList<TopRoles> alRoles;
 
-    public FragmentHome() {
+    public JobTypeFragment() {
         // Required empty public constructor
     }
 
@@ -48,7 +50,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View mRootView = inflater.inflate(R.layout.fragment_home, container, false);
+        View mRootView = inflater.inflate(R.layout.fragment_job_type, container, false);
         bindControls(mRootView);
         setRolesAdapter();
         return mRootView;
@@ -56,14 +58,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     private void bindControls(View mRootView) {
         mUtilities = new Utilities(getActivity());
-        mRvRoles = (RecyclerView) mRootView.findViewById(R.id.rv_top_roles);
+        mRvJobList = (RecyclerView) mRootView.findViewById(R.id.rv_job_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRvRoles.setLayoutManager(layoutManager);
-        mRootView.findViewById(R.id.tv_work_from_home).setOnClickListener(this);
-        mRootView.findViewById(R.id.tv_part_time_job).setOnClickListener(this);
-        mRootView.findViewById(R.id.tv_full_time_jobs).setOnClickListener(this);
-        mRootView.findViewById(R.id.internship_job).setOnClickListener(this);
+        mRvJobList.setLayoutManager(layoutManager);
     }
 
     private void setRolesAdapter() {
@@ -75,7 +73,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         }
 
         if (alRoles != null && alRoles.size() > 0) {
-            adapter = new TopRoleAdapter(getActivity(), alRoles, new AdapterResponseInterface() {
+            adapter = new JobListAdapter(getActivity(), alRoles, new AdapterResponseInterface() {
                 @Override
                 public void getAdapterResponse(Bundle bundle) {
                     if (bundle != null) {
@@ -83,26 +81,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                     }
                 }
             });
-            mRvRoles.setAdapter(adapter);
-        }
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_work_from_home:
-                mUtilities.replaceFragment(getActivity(), new JobTypeFragment(), R.string.job_type, true);
-                break;
-            case R.id.tv_part_time_job:
-                mUtilities.replaceFragment(getActivity(), new JobTypeFragment(), R.string.job_type, true);
-                break;
-            case R.id.tv_full_time_jobs:
-                mUtilities.replaceFragment(getActivity(), new JobTypeFragment(), R.string.job_type, true);
-                break;
-            case R.id.internship_job:
-                mUtilities.replaceFragment(getActivity(), new JobTypeFragment(), R.string.job_type, true);
-                break;
+            mRvJobList.setAdapter(adapter);
         }
     }
 }
