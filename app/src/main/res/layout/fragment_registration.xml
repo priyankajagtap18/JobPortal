@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_login_mobile_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_login_mob_num"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Mobile Number"
+                    android:inputType="number"
+                    android:maxLength="30" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_login_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_login_name"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Name"
+                    android:maxLength="30" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_login_email"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="30" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_login_password"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:maxLength="30" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_login_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_login_confirm_password"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Confirm Password"
+                    android:inputType="textPassword"
+                    android:maxLength="30" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                style="@style/tvMediumLightGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="We will send and read the OTP to verify your number By signing up,you agree to our Terms" />
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_register"
+                style="@style/btn_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="Register" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
