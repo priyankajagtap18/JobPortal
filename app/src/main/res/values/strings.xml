@@ -9,4 +9,5 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="network_error_msg">Please check your internet connection</string>
+    <string name="job_type">Job Type</string>
 </resources>

@@ -350,11 +350,15 @@ public class Utilities {
      * @param mFragment
      * @param resID
      */
-    public void replaceFragment(FragmentActivity mActivity, android.support.v4.app.Fragment mFragment, int resID) {
+    public void replaceFragment(FragmentActivity mActivity, android.support.v4.app.Fragment mFragment, int resID, boolean isBackStackNull) {
         if (mActivity != null && context != null) {
             String strTitle = context.getString(resID);
             sTagFragment = strTitle;
-            mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mFragment, sTagFragment).commit();
+            if (!isBackStackNull) {
+                mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mFragment, sTagFragment).addToBackStack(null).commit();
+            } else {
+                mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mFragment, sTagFragment).commit();
+            }
         }
     }
 
