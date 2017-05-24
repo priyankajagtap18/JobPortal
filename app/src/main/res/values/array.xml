@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="arr_cities">
+        <item>Nashik</item>
+        <item>Pune</item>
+        <item>Mumbai</item>
+        <item>Nagpur</item>
+    </string-array>
+
+
+
+
+</resources>

@@ -21,12 +21,31 @@
             android:paddingRight="50dp"
             android:text="" />
 
-        <ImageView
-            android:id="@+id/iv_logout"
-            android:layout_width="30dp"
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/toolbar_iv_logout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
             android:layout_alignParentRight="true"
-            android:visibility="gone"
-            android:layout_marginRight="8dp" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_action_logout" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/toolbar_iv_edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/toolbar_iv_logout"
+            android:src="@drawable/ic_action_editprofile" />
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/toolbar_iv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/toolbar_iv_edit_profile"
+            android:src="@drawable/ic_action_user" />
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
