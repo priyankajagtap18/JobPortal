@@ -3,7 +3,6 @@ package com.jobportal.helpers;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -14,6 +13,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.IBinder;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
@@ -63,18 +63,6 @@ public class Utilities {
 
     public Utilities(Context context) {
         this.context = context;
-    }
-
-    public static void replaceFragment(Activity activity, Fragment fragment, boolean isBackStackNull) {
-        fragmentManager = activity.getFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        //fragmentManager.sett(R.anim.down_from_top);
-        // fragmentTransaction.setCustomAnimations(R.animator.slide_in, 0);
-        //  fragmentTransaction.replace(R.id.container, fragment);
-        if (!isBackStackNull) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.commitAllowingStateLoss();
     }
 
     public void showProgressDialog(String message) {
@@ -350,11 +338,11 @@ public class Utilities {
      * @param mFragment
      * @param resID
      */
-    public void replaceFragment(FragmentActivity mActivity, android.support.v4.app.Fragment mFragment, int resID, boolean isBackStackNull) {
+    public void replaceFragment(FragmentActivity mActivity, Fragment mFragment, int resID, boolean isBackStackNull) {
         if (mActivity != null && context != null) {
             String strTitle = context.getString(resID);
             sTagFragment = strTitle;
-            if (!isBackStackNull) {
+            if (isBackStackNull) {
                 mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mFragment, sTagFragment).addToBackStack(null).commit();
             } else {
                 mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mFragment, sTagFragment).commit();

@@ -1,5 +1,6 @@
 package com.jobportal.fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.jobportal.R;
 import com.jobportal.adapters.JobListAdapter;
@@ -20,12 +22,13 @@ import java.util.ArrayList;
 /**
  * Created by pita on 5/22/2017.
  */
-public class JobTypeFragment extends Fragment {
+public class JobTypeFragment extends Fragment implements View.OnClickListener {
 
     private JobListAdapter adapter;
     private RecyclerView mRvJobList;
     private Utilities mUtilities;
     private ArrayList<TopRoles> alRoles;
+
 
     public JobTypeFragment() {
         // Required empty public constructor
@@ -62,6 +65,8 @@ public class JobTypeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRvJobList.setLayoutManager(layoutManager);
+        mRootView.findViewById(R.id.tv_create_profile).setOnClickListener(this);
+        mRootView.findViewById(R.id.tv_sort).setOnClickListener(this);
     }
 
     private void setRolesAdapter() {
@@ -78,10 +83,33 @@ public class JobTypeFragment extends Fragment {
                 public void getAdapterResponse(Bundle bundle) {
                     if (bundle != null) {
                         alRoles.get(bundle.getInt(AppConstants.ADAPTER_POSITION));
+                        mUtilities.replaceFragment(getActivity(), JobDetailFragment.newInstance(), R.string.job_detail, true);
                     }
                 }
             });
             mRvJobList.setAdapter(adapter);
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_create_profile:
+                mUtilities.replaceFragment(getActivity(), CreateProfileFragment.newInstance(), R.string.job_detail, true);
+                break;
+            case R.id.tv_sort:
+                showSortDialog();
+                break;
+        }
+    }
+
+    private void showSortDialog() {
+        Dialog exitDialog = new Dialog(getActivity());
+        exitDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        exitDialog.setContentView(R.layout.sort_dialog);
+        exitDialog.setCanceledOnTouchOutside(true);
+
+        exitDialog.show();
+        //mCommonCode.setLayoutParamForDialog(getActivity(), exitDialog);
     }
 }

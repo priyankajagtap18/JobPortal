@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_job_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Software Developer"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/blue" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Posted on May 07 2017"
+                android:textAppearance="?android:textAppearanceListItemSmall"
+                android:textColor="@color/dark_gray_text" />
+
+            <TextView
+                android:id="@+id/tv_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="IT Software Developer"
+                android:textAppearance="?android:textAppearanceListItemSmall"
+                android:textColor="@color/colorGray" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Nashik road, Nashik, Maharashtra"
+                android:textAppearance="?android:textAppearanceListItemSmall"
+                android:textColor="@color/colorGray" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_gray"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="6dp"
+                    android:text="Job Detail"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/blue" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="6dp"
+                    android:weightSum="1">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".4"
+                        android:text="Min Salary : "
+                        android:textAppearance="?android:textAppearanceListItemSmall"
+                        android:textColor="@color/colorGray" />
+
+                    <TextView
+                        android:id="@+id/tv_min_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".6"
+                        android:text="25000"
+                        android:textAppearance="?android:textAppearanceListItemSmall"
+                        android:textColor="@color/dark_gray_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="6dp"
+                    android:weightSum="1">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".4"
+                        android:text="Max Salary : "
+                        android:textAppearance="?android:textAppearanceListItemSmall"
+                        android:textColor="@color/colorGray" />
+
+                    <TextView
+                        android:id="@+id/tv_max_salary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".6"
+                        android:text="55000"
+                        android:textAppearance="?android:textAppearanceListItemSmall"
+                        android:textColor="@color/dark_gray_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="6dp"
+                    android:weightSum="1">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".4"
+                        android:text="Company Name : "
+                        android:textAppearance="?android:textAppearanceListItemSmall"
+                        android:textColor="@color/colorGray" />
+
+                    <TextView
+                        android:id="@+id/tv_company_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".6"
+                        android:text="Individual"
+                        android:textAppearance="?android:textAppearanceListItemSmall"
+                        android:textColor="@color/dark_gray_text" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Job Description"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/blue" />
+
+            <TextView
+                android:id="@+id/tv_job_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Person should have excellent academic record and should be quick learner"
+                android:textAppearance="?android:textAppearanceListItemSmall"
+                android:textColor="@color/dark_gray_text" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_apply"
+            style="@style/btn_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_toLeftOf="@+id/iv_call"
+            android:text="Apply" />
+
+        <ImageView
+            android:id="@+id/iv_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/black"
+            android:paddingBottom="8dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="8dp"
+            android:src="@android:drawable/ic_menu_call" />
+    </RelativeLayout>
+</RelativeLayout>

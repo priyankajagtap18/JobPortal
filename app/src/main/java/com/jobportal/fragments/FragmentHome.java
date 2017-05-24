@@ -64,6 +64,8 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         mRootView.findViewById(R.id.tv_part_time_job).setOnClickListener(this);
         mRootView.findViewById(R.id.tv_full_time_jobs).setOnClickListener(this);
         mRootView.findViewById(R.id.internship_job).setOnClickListener(this);
+        mRootView.findViewById(R.id.tv_hire_candidates).setOnClickListener(this);
+        mRootView.findViewById(R.id.tv_premiun_job_seeker).setOnClickListener(this);
     }
 
     private void setRolesAdapter() {
@@ -102,6 +104,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 break;
             case R.id.internship_job:
                 mUtilities.replaceFragment(getActivity(), new JobTypeFragment(), R.string.job_type, true);
+                break;
+
+            case R.id.tv_hire_candidates:
+                mUtilities.replaceFragment(getActivity(), FilterProfileFragment.newInstance(), R.string.filter_profile, true);
                 break;
         }
     }

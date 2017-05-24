@@ -7,8 +7,29 @@
         <item>Mumbai</item>
         <item>Nagpur</item>
     </string-array>
+    <string-array name="arr_role">
+        <item>Accountant</item>
+        <item>Cameraman</item>
+        <item>Cashier</item>
+        <item>Tester</item>
+    </string-array>
 
-
-
-
+    <string-array name="arr_locality">
+        <item>Satpur</item>
+        <item>Cidco</item>
+        <item>Ambad</item>
+        <item>Dwarka</item>
+    </string-array>
+    <string-array name="arr_education">
+        <item>10th Pass</item>
+        <item>12th Pass</item>
+        <item>Diploma</item>
+        <item>Graduate</item>
+    </string-array>
+    <string-array name="arr_profile_freshness">
+        <item>1 Year</item>
+        <item>2 Year</item>
+        <item>3 Year</item>
+        <item>4 Year</item>
+    </string-array>
 </resources>

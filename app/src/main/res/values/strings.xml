@@ -10,4 +10,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="network_error_msg">Please check your internet connection</string>
     <string name="job_type">Job Type</string>
+    <string name="job_detail">Job Detail</string>
+    <string name="filter_profile">Filter Profiles</string>
 </resources>
