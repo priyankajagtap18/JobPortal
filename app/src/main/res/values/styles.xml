@@ -21,8 +21,8 @@
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:background">@color/colorPrimary</item>
     </style>
+
 
     <style name="btn_blue_border">
         <item name="android:textColor">@color/white</item>
@@ -85,6 +85,25 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/colorGray</item>
+    </style>
+    <style name="tvMediumBoldWhite">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="tvMediumBoldBlack">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="spinnerGrayTHintColor" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/tv_light_gray</item>
+        <item name="android:spinnerMode">dialog</item>
     </style>
 
 
