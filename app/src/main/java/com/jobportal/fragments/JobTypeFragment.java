@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.jobportal.R;
 import com.jobportal.adapters.JobListAdapter;
@@ -82,8 +84,12 @@ public class JobTypeFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void getAdapterResponse(Bundle bundle) {
                     if (bundle != null) {
-                        alRoles.get(bundle.getInt(AppConstants.ADAPTER_POSITION));
-                        mUtilities.replaceFragment(getActivity(), JobDetailFragment.newInstance(), R.string.job_detail, true);
+                        if (bundle.getString(AppConstants.TYPE_CLICKED).equalsIgnoreCase(AppConstants.TYPE_LAYOUT)) {
+                            alRoles.get(bundle.getInt(AppConstants.ADAPTER_POSITION));
+                            mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), JobDetailFragment.newInstance(), R.string.job_detail, true);
+                        } else {
+                            mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), JobApplyFragment.newInstance(), R.string.job_apply, true);
+                        }
                     }
                 }
             });
@@ -95,7 +101,7 @@ public class JobTypeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_create_profile:
-                mUtilities.replaceFragment(getActivity(), CreateProfileFragment.newInstance(), R.string.job_detail, true);
+                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), CreateProfileFragment.newInstance(), R.string.job_detail, true);
                 break;
             case R.id.tv_sort:
                 showSortDialog();
@@ -104,12 +110,29 @@ public class JobTypeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void showSortDialog() {
-        Dialog exitDialog = new Dialog(getActivity());
-        exitDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        exitDialog.setContentView(R.layout.sort_dialog);
-        exitDialog.setCanceledOnTouchOutside(true);
+        Dialog dialog = new Dialog(getActivity());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.sort_dialog);
+        dialog.setCanceledOnTouchOutside(true);
+        final RadioGroup rgSort = (RadioGroup) dialog.findViewById(R.id.rgSort);
+        final RadioButton rbtnRelevant = (RadioButton) dialog.findViewById(R.id.rbtn_relevant);
+        final RadioButton rbtnNewest = (RadioButton) dialog.findViewById(R.id.rbtn_newest);
 
-        exitDialog.show();
+        rgSort.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                              @Override
+                                              public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                                                  rbtnRelevant.setChecked(false);
+                                                  rbtnNewest.setChecked(false);
+                                                  rbtnRelevant.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                                                  rbtnNewest.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                                                  int selectedId = radioGroup.getCheckedRadioButtonId();
+                                                  RadioButton radioButton = (RadioButton) radioGroup.findViewById(selectedId);
+                                                  radioButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, android.R.drawable.checkbox_on_background, 0);
+                                              }
+                                          }
+        );
+
+        dialog.show();
         //mCommonCode.setLayoutParamForDialog(getActivity(), exitDialog);
     }
 }

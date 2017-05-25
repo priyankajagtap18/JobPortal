@@ -8,8 +8,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.jobportal.R;
+import com.jobportal.constants.AppConstants;
 import com.jobportal.fragments.AdListFragment;
-import com.jobportal.fragments.AdPostFragment;
 import com.jobportal.helpers.Utilities;
 
 /**
@@ -29,7 +29,7 @@ public class AdListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ad_list);
         bindControls();
         setListeners();
-        mUtilities.replaceFragment(this, new AdListFragment(), R.string.hello_fragment, false);
+        mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new AdListFragment(), R.string.hello_fragment, false);
     }
 
     private void setListeners() {

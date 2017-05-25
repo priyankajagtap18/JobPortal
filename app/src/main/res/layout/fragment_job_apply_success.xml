@@ -15,7 +15,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:orientation="vertical">
 
 
@@ -23,11 +22,23 @@
                 android:id="@+id/tv_role"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="8dp"
-                android:text="DESCRIBE YOUR NEED"
+                android:text="Your Application has been sent!"
                 android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/colorGreen" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="8dp"
+                android:text="To get 3 times more calls for job, please provide the following details."
+                android:textAppearance="?android:textAppearanceListItemSmall"
                 android:textColor="@color/black" />
 
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,14 +47,50 @@
                 android:theme="@style/custom_til_blue">
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_name"
+                    android:id="@+id/et_salary"
                     style="@style/etBlueBlack"
                     android:layout_width="match_parent"
-                    android:hint="Test"
+                    android:hint="Current salary per month"
                     android:maxLength="60"
-                    android:text="Name" />
+                    android:text="" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="6dp"
+                android:text="Do you have Basic knowledge of Microsoft Excel?"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/gray_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rbtn_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:gravity="left|center"
+                    android:paddingLeft="10dp"
+                    android:text="Yes"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/rbtn_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:gravity="left|center"
+                    android:paddingLeft="10dp"
+                    android:text="No"
+                    android:textColor="@color/black" />
+            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -53,39 +100,50 @@
                 android:theme="@style/custom_til_blue">
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_mobile_no"
+                    android:id="@+id/et_designation"
                     style="@style/etBlueBlack"
                     android:layout_width="match_parent"
-                    android:hint="Mobile No"
-                    android:maxLength="30"
-                    android:text="487648327468" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="6dp"
-                android:theme="@style/custom_til_blue">
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_email"
-                    style="@style/etBlueBlack"
-                    android:layout_width="match_parent"
-                    android:hint="Email"
+                    android:hint="Designation"
                     android:maxLength="50"
                     android:text="" />
 
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="6dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_company"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Company"
+                    android:maxLength="70"
+                    android:text="" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="6dp"
+                android:text="Role Experience (in Years)"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/gray_text" />
+
             <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/sp_role"
+                android:id="@+id/sp_experience"
                 style="@style/spinnerGrayTHintColor"
                 android:layout_marginBottom="6dp"
                 android:layout_marginTop="6dp"
                 android:dropDownVerticalOffset="25dp"
-                android:entries="@array/arr_role" />
+                android:entries="@array/arr_profile_freshness" />
 
             <View
                 android:layout_width="match_parent"
@@ -93,34 +151,6 @@
                 android:layout_margin="8dp"
                 android:background="@color/colorLightGrayDivider" />
 
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/sp_city"
-                style="@style/spinnerGrayTHintColor"
-                android:layout_marginBottom="6dp"
-                android:layout_marginTop="6dp"
-                android:dropDownVerticalOffset="25dp"
-                android:entries="@array/arr_cities" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="8dp"
-                android:background="@color/colorLightGrayDivider" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/sp_locality"
-                style="@style/spinnerGrayTHintColor"
-                android:layout_marginBottom="6dp"
-                android:layout_marginTop="6dp"
-                android:dropDownVerticalOffset="25dp"
-                android:entries="@array/arr_locality" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="8dp"
-                android:background="@color/colorLightGrayDivider" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_save"
@@ -129,16 +159,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
-                android:text="Create Profile" />
+                android:text="SUBMIT" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:gravity="center"
-                android:text="You will be sent free SMS and Email Jobs Alerts for matching your Profile"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:text="SKIP"
                 android:textAppearance="?textAppearanceListItem"
-                android:textColor="@color/colorGray" />
+                android:textColor="@color/blue" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </ScrollView>

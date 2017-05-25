@@ -76,6 +76,16 @@ public class JobListAdapter extends RecyclerView.Adapter<JobListAdapter.Category
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     bundle.putInt(AppConstants.ADAPTER_POSITION, getAdapterPosition());
+                    bundle.putString(AppConstants.TYPE_CLICKED, AppConstants.TYPE_LAYOUT);
+                    listener.getAdapterResponse(bundle);
+                }
+            });
+            btn_apply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(AppConstants.ADAPTER_POSITION, getAdapterPosition());
+                    bundle.putString(AppConstants.TYPE_CLICKED, AppConstants.TYPE_BUTTON);
                     listener.getAdapterResponse(bundle);
                 }
             });

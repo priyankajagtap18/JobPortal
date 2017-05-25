@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setListeners();
         setUpNavigationView();
         setRolesAdapter();
-        mUtilities.replaceFragment(this, new FragmentHome(), R.string.hello_fragment, false);
+        mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new FragmentHome(), R.string.hello_fragment, false);
     }
 
     private void setListeners() {
@@ -122,14 +122,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    @Override
+  /*  @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
-
+            //handleBackPress();
         }
-    }
+    }*/
 
     private void handleBackPress() {
         if (doubleBackToExitPressedOnce) {

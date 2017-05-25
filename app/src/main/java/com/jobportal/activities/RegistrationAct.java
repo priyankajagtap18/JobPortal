@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.jobportal.R;
+import com.jobportal.constants.AppConstants;
 import com.jobportal.fragments.OTPFragment;
 import com.jobportal.fragments.RegistrationFragment;
 import com.jobportal.helpers.Utilities;
@@ -31,7 +32,7 @@ public class RegistrationAct extends AppCompatActivity implements ClickListner {
         bindControls();
         setTitle("Register");
         setListeners();
-        mUtilities.replaceFragment(this, new RegistrationFragment(), R.string.hello_fragment, false);
+        mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new RegistrationFragment(), R.string.hello_fragment, false);
     }
 
     private void setListeners() {
@@ -72,7 +73,7 @@ public class RegistrationAct extends AppCompatActivity implements ClickListner {
     @Override
     public void getClick(boolean isClick) {
         if (isClick) {
-            mUtilities.replaceFragment(this, new OTPFragment(), R.string.hello_fragment, true);
+            mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new OTPFragment(), R.string.hello_fragment, true);
             setTitle("OTP");
         }
     }

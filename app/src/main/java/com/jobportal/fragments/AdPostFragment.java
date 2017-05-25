@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.jobportal.R;
 import com.jobportal.activities.AdsPostActivity;
+import com.jobportal.constants.AppConstants;
 import com.jobportal.helpers.Utilities;
 
 /**
@@ -55,6 +56,6 @@ public class AdPostFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        mUtilities.replaceFragment(getActivity(), new AdPostSuccessFragment(), R.string.hello_fragment, false);
+        mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new AdPostSuccessFragment(), R.string.hello_fragment, false);
     }
 }

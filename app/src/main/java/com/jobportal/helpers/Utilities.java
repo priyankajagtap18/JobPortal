@@ -338,8 +338,8 @@ public class Utilities {
      * @param mFragment
      * @param resID
      */
-    public void replaceFragment(FragmentActivity mActivity, Fragment mFragment, int resID, boolean isBackStackNull) {
-        if (mActivity != null && context != null) {
+    public void replaceFragment(int layout, FragmentActivity mActivity, Fragment mFragment, int resID, boolean isBackStackNull) {
+      /*  if (mActivity != null && context != null) {
             String strTitle = context.getString(resID);
             sTagFragment = strTitle;
             if (isBackStackNull) {
@@ -347,6 +347,16 @@ public class Utilities {
             } else {
                 mActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fl_container, mFragment, sTagFragment).commit();
             }
+        }*/
+        android.support.v4.app.FragmentTransaction fragmentTransaction = mActivity.getSupportFragmentManager().beginTransaction();
+
+        if (mActivity.getSupportFragmentManager().findFragmentByTag(mFragment.getClass().getSimpleName()) == null) {
+            if (isBackStackNull) {
+                fragmentTransaction.replace(layout, mFragment, mFragment.getClass().getSimpleName()).addToBackStack(null).commit();
+            } else {
+                fragmentTransaction.replace(layout, mFragment).commit();
+            }
+
         }
     }
 

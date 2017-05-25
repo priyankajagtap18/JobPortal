@@ -5,15 +5,13 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.jobportal.R;
+import com.jobportal.constants.AppConstants;
 import com.jobportal.fragments.EditProfileFragment;
-import com.jobportal.fragments.MyAccountFragment;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.utils.UIUtils;
 
@@ -39,7 +37,7 @@ public class EditProfileActivity extends AppCompatActivity implements AppBarLayo
         bindControls();
         setTitle("My Account");
         setListeners();
-        mUtilities.replaceFragment(this, new EditProfileFragment(), R.string.hello_fragment, false);
+        mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new EditProfileFragment(), R.string.hello_fragment, false);
     }
 
     private void setListeners() {

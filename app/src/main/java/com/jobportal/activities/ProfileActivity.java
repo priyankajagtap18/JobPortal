@@ -7,19 +7,15 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jobportal.R;
+import com.jobportal.constants.AppConstants;
 import com.jobportal.fragments.MyAccountFragment;
-import com.jobportal.fragments.OTPFragment;
-import com.jobportal.fragments.RegistrationFragment;
 import com.jobportal.helpers.Utilities;
-import com.jobportal.listeners.ClickListner;
 import com.jobportal.utils.UIUtils;
 
 /**
@@ -45,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         bindControls();
         setTitle("My Account");
         setListeners();
-        mUtilities.replaceFragment(this, new MyAccountFragment(), R.string.hello_fragment, false);
+        mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new MyAccountFragment(), R.string.hello_fragment, false);
     }
 
     private void setListeners() {

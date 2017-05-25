@@ -12,4 +12,6 @@
     <string name="job_type">Job Type</string>
     <string name="job_detail">Job Detail</string>
     <string name="filter_profile">Filter Profiles</string>
+    <string name="job_apply">Job Apply</string>
+    <string name="job_apply_suucess">Job apply success</string>
 </resources>

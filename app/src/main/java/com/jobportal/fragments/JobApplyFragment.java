@@ -13,19 +13,19 @@ import com.jobportal.helpers.Utilities;
 /**
  * Created by pita on 5/24/2017.
  */
-public class JobDetailFragment extends Fragment implements View.OnClickListener {
+public class JobApplyFragment extends Fragment implements View.OnClickListener {
     private Utilities mUtilities;
 
-    public JobDetailFragment() {
+    public JobApplyFragment() {
         // Required empty public constructor
     }
 
 
-    public static JobDetailFragment newInstance() {
+    public static JobApplyFragment newInstance() {
        /* FragmentHome fragment = new FragmentHome();
         Bundle args = new Bundle();
         fragment.setArguments(args);*/
-        return new JobDetailFragment();
+        return new JobApplyFragment();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class JobDetailFragment extends Fragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View mRootView = inflater.inflate(R.layout.fragment_job_detail, container, false);
+        View mRootView = inflater.inflate(R.layout.fragment_job_apply, container, false);
         bindControls(mRootView);
         return mRootView;
     }
@@ -53,7 +53,7 @@ public class JobDetailFragment extends Fragment implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_apply:
-                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), JobApplyFragment.newInstance(), R.string.job_apply, true);
+                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), JobApplySuccessFragment.newInstance(), R.string.job_apply_suucess, true);
                 break;
         }
     }

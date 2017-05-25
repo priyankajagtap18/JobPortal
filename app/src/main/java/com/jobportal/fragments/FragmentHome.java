@@ -94,20 +94,20 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_work_from_home:
-                mUtilities.replaceFragment(getActivity(), new JobTypeFragment(), R.string.job_type, true);
+                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new JobTypeFragment(), R.string.job_type, true);
                 break;
             case R.id.tv_part_time_job:
-                mUtilities.replaceFragment(getActivity(), new JobTypeFragment(), R.string.job_type, true);
+                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new JobTypeFragment(), R.string.job_type, true);
                 break;
             case R.id.tv_full_time_jobs:
-                mUtilities.replaceFragment(getActivity(), new JobTypeFragment(), R.string.job_type, true);
+                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new JobTypeFragment(), R.string.job_type, true);
                 break;
             case R.id.internship_job:
-                mUtilities.replaceFragment(getActivity(), new JobTypeFragment(), R.string.job_type, true);
+                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new JobTypeFragment(), R.string.job_type, true);
                 break;
 
             case R.id.tv_hire_candidates:
-                mUtilities.replaceFragment(getActivity(), FilterProfileFragment.newInstance(), R.string.filter_profile, true);
+                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), FilterProfileFragment.newInstance(), R.string.filter_profile, true);
                 break;
         }
     }
