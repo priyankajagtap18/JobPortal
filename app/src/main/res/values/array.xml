@@ -7,6 +7,11 @@
         <item>Mumbai</item>
         <item>Nagpur</item>
     </string-array>
+    <string-array name="arr_job_category">
+        <item>Full Time Job</item>
+        <item>Part Time Job</item>
+
+    </string-array>
     <string-array name="arr_role">
         <item>Accountant</item>
         <item>Cameraman</item>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGray"
+                android:padding="5dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/tvMediumBoldBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:text="Category Details" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/tvMediumLightGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Category" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/sp_categories"
+                style="@style/spinnerGrayTHintColor"
+                android:layout_margin="10dp"
+                android:dropDownVerticalOffset="25dp"
+                android:entries="@array/arr_job_category" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorLightGrayDivider" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGray"
+                android:padding="5dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/tvMediumBoldBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="17dp"
+                    android:text="Add Details" />
+
+            </RelativeLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_title"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Enter Ad title (min 10 character)" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/tvMediumLightGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Select Role" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/sp_role"
+                style="@style/spinnerGrayTHintColor"
+                android:layout_margin="10dp"
+                android:dropDownVerticalOffset="25dp"
+                android:entries="@array/arr_job_category" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorLightGrayDivider" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_min_salary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_min_salary"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Min Salary"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_max_salary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_max_salary"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Max Salary"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_experience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_experience"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Experience"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_company_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_company_name"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Company Name" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_ads_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_ads_descriptions"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Ads Description(Min 30 Character)" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightGray"
+                android:padding="5dp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/tvMediumBoldBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="17dp"
+                    android:text="Your contact information" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/tvMediumLightGray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Job Location" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/sp_job_location"
+                style="@style/spinnerGrayTHintColor"
+                android:layout_margin="10dp"
+                android:dropDownVerticalOffset="25dp"
+                android:entries="@array/arr_job_category" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorLightGrayDivider" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_email"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:theme="@style/custom_til_blue">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_mobile"
+                    style="@style/etBlueBlack"
+                    android:layout_width="match_parent"
+                    android:hint="Mobile"
+                    android:inputType="textEmailAddress" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_update_ad"
+                style="@style/btn_blue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:text="Update Job" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
