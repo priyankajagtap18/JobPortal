@@ -12,50 +12,68 @@
             android:name="com.jobportal.activities.SplashAct"
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-            <!--  <intent-filter>
-                  <action android:name="android.intent.action.MAIN" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
 
-                  <category android:name="android.intent.category.LAUNCHER" />
-              </intent-filter>-->
         </activity>
         <activity
             android:name="com.jobportal.activities.MainActivity"
-            android:theme="@style/AppTheme"
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize"></activity>
         <activity
             android:name="com.jobportal.activities.RegistrationAct"
-            android:theme="@style/AppTheme"
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize"></activity>
         <activity
             android:name="com.jobportal.activities.LoginActivity"
-            android:theme="@style/AppTheme"
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="com.jobportal.activities.ProfileActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize"></activity>
+        <activity
+            android:name="com.jobportal.activities.EditProfileActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize"></activity>
+        <activity
+            android:name="com.jobportal.activities.AdsPostActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
+
+        </activity>
+        <activity
+            android:name="com.jobportal.activities.AdListActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name="com.jobportal.activities.ProfileActivity"
-            android:theme="@style/AppTheme"
+            android:name="com.jobportal.activities.EditAdsActivity"
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
-        </activity>
-        <activity
-            android:name="com.jobportal.activities.EditProfileActivity"
             android:theme="@style/AppTheme"
-            android:configChanges="keyboard|screenSize|orientation"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
+
         </activity>
     </application>
 </manifest>
