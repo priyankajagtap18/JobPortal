@@ -1,6 +1,7 @@
 package com.jobportal.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jobportal.R;
@@ -27,7 +30,7 @@ import com.jobportal.utils.UIUtils;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private Context mContext;
     private Utilities mUtilities;
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<TopRoles> alRoles;
     private TopRoleAdapter adapter;
     private RecyclerView mRvRoles;
+    private RelativeLayout rel_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mTvTitle = (TextView) mToolbar.findViewById(R.id.tv_title);
         mRvRoles = (RecyclerView) mNavigationView.findViewById(R.id.rv_category);
+         rel_profile = (RelativeLayout) findViewById(R.id.rel_profile);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRvRoles.setLayoutManager(layoutManager);
@@ -93,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         callAPI();
+       rel_profile.setOnClickListener(this);
     }
 
     private void callAPI() {
@@ -177,6 +183,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
             mRvRoles.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rel_profile:
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 }
