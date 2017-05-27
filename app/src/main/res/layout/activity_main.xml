@@ -38,12 +38,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="20dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/blue">
 
                 <ImageView
                     android:id="@+id/iv_profile"
@@ -56,33 +57,104 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/iv_profile"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp">
 
                     <TextView
                         android:id="@+id/tv_user_name"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="Login/Signup"
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/tv_email"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:text="My Account"
+                        android:textColor="@color/white" />
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="5dp"
+
+                    android:src="@android:drawable/arrow_down_float" />
             </RelativeLayout>
+
+            <!--  <View
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:layout_marginTop="10dp"
+                  android:background="@color/gray_text" />-->
+
+            <!-- <android.support.v7.widget.RecyclerView
+                 android:id="@+id/rv_category"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content" />
+
+ -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorLightGray"
+                android:drawableLeft="@android:drawable/sym_def_app_icon"
+                android:gravity="left|center"
+                android:padding="8dp"
+                android:text="Home"
+                android:textColor="@color/blue" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:padding="16dp"
+                android:text="MY ACTIVITIES" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="10dp"
                 android:background="@color/gray_text" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_category"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/sym_def_app_icon"
+                android:gravity="left|center"
+                android:padding="8dp"
+                android:text="Ads" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_msg_notification"
+                android:gravity="left|center"
+                android:padding="8dp"
+                android:text="Messages &amp; Notifications" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/ic_shortlisted_ads"
+                android:gravity="left|center"
+                android:padding="8dp"
+                android:text="ShortListed Ads" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@android:drawable/ic_menu_view"
+                android:gravity="left|center"
+                android:padding="8dp"
+                android:text="Recently Viewed Ads" />
         </LinearLayout>
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

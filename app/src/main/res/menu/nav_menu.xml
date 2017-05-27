@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/grp0"
+        android:checkableBehavior="none"
+        android:enabled="false">
+        <item
+            android:checked="false"
+            android:title="" />
+    </group>
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_cust_order_status"
+            android:checked="true"
+            android:title="Ads" />
+    </group>
+
+
+    <group
+        android:id="@+id/grp3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_shipment_schedule"
+            android:checked="false"
+            android:title="Message &amp; Notifications" />
+    </group>
+
+    <group
+        android:id="@+id/grp4"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_qa_announcement"
+            android:checked="false"
+            android:title="Shortlisted Ads" />
+    </group>
+    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_credit_balance"
+            android:checked="false"
+            android:title="Recently Viewed Ads" />
+    </group>
+
+</menu>

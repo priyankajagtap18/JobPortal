@@ -8,19 +8,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.jobportal.R;
-import com.jobportal.adapters.TopRoleAdapter;
 import com.jobportal.constants.AppConstants;
 import com.jobportal.entities.TopRoles;
 import com.jobportal.fragments.FragmentHome;
 import com.jobportal.helpers.Utilities;
-import com.jobportal.listeners.AdapterResponseInterface;
 import com.jobportal.sync.SyncListener;
 import com.jobportal.sync.SyncManager;
 import com.jobportal.utils.UIUtils;
@@ -39,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     boolean doubleBackToExitPressedOnce = false;
     private ArrayList<TopRoles> alRoles;
-    private TopRoleAdapter adapter;
-    private RecyclerView mRvRoles;
+    // private TopRoleAdapter adapter;
+    // private RecyclerView mRvRoles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bindControls();
         setListeners();
         setUpNavigationView();
-        setRolesAdapter();
+//        setRolesAdapter();
         mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new FragmentHome(), R.string.hello_fragment, false);
     }
 
@@ -64,10 +60,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mTvTitle = (TextView) mToolbar.findViewById(R.id.tv_title);
-        mRvRoles = (RecyclerView) mNavigationView.findViewById(R.id.rv_category);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRvRoles.setLayoutManager(layoutManager);
+        //mRvRoles = (RecyclerView) mNavigationView.findViewById(R.id.rv_category);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        mRvRoles.setLayoutManager(layoutManager);
         setSupportActionBar(mToolbar);
         syncListener = new SyncListener() {
             @Override
@@ -159,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void setRolesAdapter() {
+   /* private void setRolesAdapter() {
         alRoles = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             TopRoles roles = new TopRoles();
@@ -178,5 +174,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             });
             mRvRoles.setAdapter(adapter);
         }
-    }
+    }*/
 }

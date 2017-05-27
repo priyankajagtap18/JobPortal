@@ -17,7 +17,7 @@
     <color name="colorBlue">#233480</color>
     <color name="colorBlueVisited">#EE82EE</color>
     <color name="colorGray">#848484</color>
-    <color name="colorLightGray">#D0D0D0</color>
+    <color name="colorLightGray">#e1dfdf</color>
 
     <color name="colorTransparentToolbar">#22007EBE</color>
     <color name="tv_light_gray">#A4A4A4</color>

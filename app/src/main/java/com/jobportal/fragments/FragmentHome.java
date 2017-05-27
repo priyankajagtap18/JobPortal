@@ -107,7 +107,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.tv_hire_candidates:
-                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), FilterProfileFragment.newInstance(), R.string.filter_profile, true);
+                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), HireCandidatesFragment.newInstance(), R.string.hire_candidates, true);
                 break;
         }
     }
