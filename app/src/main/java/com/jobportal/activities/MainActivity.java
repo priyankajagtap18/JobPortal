@@ -1,6 +1,7 @@
 package com.jobportal.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jobportal.R;
@@ -23,7 +26,7 @@ import com.jobportal.utils.UIUtils;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private Context mContext;
     private Utilities mUtilities;
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         callAPI();
+       rel_profile.setOnClickListener(this);
     }
 
     private void callAPI() {

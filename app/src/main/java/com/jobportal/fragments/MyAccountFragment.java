@@ -1,5 +1,6 @@
 package com.jobportal.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jobportal.R;
+import com.jobportal.activities.AdsPostActivity;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.listeners.ClickListner;
 
@@ -18,6 +20,7 @@ import com.jobportal.listeners.ClickListner;
 public class MyAccountFragment extends Fragment implements View.OnClickListener {
 
     private Utilities mUtilities;
+    private AppCompatButton btn_post_ad;
 
     public MyAccountFragment() {
         // Required empty public constructor
@@ -47,10 +50,18 @@ public class MyAccountFragment extends Fragment implements View.OnClickListener 
 
     private void bindControls(View mRootView) {
         mUtilities = new Utilities(getActivity());
+        btn_post_ad=(AppCompatButton)mRootView.findViewById(R.id.btn_post_ad);
+        btn_post_ad.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        ((ClickListner) getActivity()).getClick(true);
+       switch (v.getId())
+       {
+           case R.id.btn_post_ad:
+               Intent intent=new Intent(getActivity(), AdsPostActivity.class);
+               startActivity(intent);
+               break;
+       }
     }
 }

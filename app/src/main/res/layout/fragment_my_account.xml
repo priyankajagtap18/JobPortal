@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="vertical">
 
     <android.support.v7.widget.AppCompatTextView
@@ -122,6 +123,8 @@
                 android:text="Apr'17" />
         </LinearLayout>
 
+
+
     </LinearLayout>
 
     <View
@@ -129,4 +132,13 @@
         android:layout_height="0.5dp"
         android:layout_margin="10dp"
         android:background="@color/colorLightGray" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_post_ad"
+        style="@style/btn_blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:text="Post Free Job" />
 </LinearLayout>
