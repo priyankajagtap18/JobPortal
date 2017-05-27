@@ -50,18 +50,17 @@ public class MyAccountFragment extends Fragment implements View.OnClickListener 
 
     private void bindControls(View mRootView) {
         mUtilities = new Utilities(getActivity());
-        btn_post_ad=(AppCompatButton)mRootView.findViewById(R.id.btn_post_ad);
+        btn_post_ad = (AppCompatButton) mRootView.findViewById(R.id.btn_post_ad);
         btn_post_ad.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-       switch (v.getId())
-       {
-           case R.id.btn_post_ad:
-               Intent intent=new Intent(getActivity(), AdsPostActivity.class);
-               startActivity(intent);
-               break;
-       }
+        switch (v.getId()) {
+            case R.id.btn_post_ad:
+                Intent intent = new Intent(getActivity(), AdsPostActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

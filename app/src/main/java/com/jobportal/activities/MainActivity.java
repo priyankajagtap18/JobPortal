@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ArrayList<TopRoles> alRoles;
     // private TopRoleAdapter adapter;
     // private RecyclerView mRvRoles;
+    private RelativeLayout rel_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mTvTitle = (TextView) mToolbar.findViewById(R.id.tv_title);
+        rel_profile = (RelativeLayout) findViewById(R.id.rel_profile);
         //mRvRoles = (RecyclerView) mNavigationView.findViewById(R.id.rv_category);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
 //        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         };
         callAPI();
-       rel_profile.setOnClickListener(this);
+        rel_profile.setOnClickListener(this);
     }
 
     private void callAPI() {
@@ -156,6 +158,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void closeDrawer() {
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rel_profile:
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
