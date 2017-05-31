@@ -3,9 +3,12 @@ package com.jobportal.sync;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.google.gson.Gson;
+import com.jobportal.entities.AllJob;
 import com.jobportal.helpers.Utilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -32,7 +35,10 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
         String response = params[0];
         try {
             switch (taskId) {
-                case SyncManager.ALL_ROLES:
+                case SyncManager.ALL_JOBS:
+                    AllJob allJobs = new Gson().fromJson(response, AllJob.class);
+                    ArrayList<AllJob> jobs = new ArrayList<AllJob>(Arrays.asList(allJobs));
+                    arrResult = jobs;
                   /*  Channel channel = new Channel(context);
                     ArrayList<Channel> alChannel = new ArrayList<Channel>();
                     try {

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.jobportal.R;
 import com.jobportal.constants.AppConstants;
-import com.jobportal.entities.TopRoles;
 import com.jobportal.listeners.AdapterResponseInterface;
 
 import java.util.ArrayList;
@@ -22,11 +21,11 @@ public class TopRoleAdapter extends RecyclerView.Adapter<TopRoleAdapter.Category
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private ArrayList<TopRoles> mArrLResult;
+    private ArrayList<String> mArrLResult;
     private AdapterResponseInterface listener;
 
 
-    public TopRoleAdapter(Context context, ArrayList<TopRoles> arrResult, AdapterResponseInterface listener) {
+    public TopRoleAdapter(Context context, ArrayList<String> arrResult, AdapterResponseInterface listener) {
         super();
         this.mContext = context;
         this.mArrLResult = arrResult;
@@ -42,7 +41,7 @@ public class TopRoleAdapter extends RecyclerView.Adapter<TopRoleAdapter.Category
 
     @Override
     public void onBindViewHolder(final CategoryViewHolder holder, final int i) {
-        holder.mTvRoleName.setText(mArrLResult.get(i).getRole());
+        holder.mTvRoleName.setText(mArrLResult.get(i).toString());
     }
 
     @Override

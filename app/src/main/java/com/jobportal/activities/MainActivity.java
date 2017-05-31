@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         syncListener = new SyncListener() {
             @Override
             public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
-                Utilities.hideSoftInputKeypad(mContext, MainActivity.this);
-                if (taskId == SyncManager.ALL_ROLES) {
+                Utilities.hideSoftInputKeypad(MainActivity.this);
+                if (taskId == SyncManager.ALL_JOBS) {
 
                 } else {
                     onSyncFailure(taskId, getString(R.string.server_error));
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onSyncFailure(int taskId, String message) {
-                Utilities.hideSoftInputKeypad(mContext, MainActivity.this);
+                Utilities.hideSoftInputKeypad(MainActivity.this);
                 mUtilities.hideProgressDialog();
             }
 
