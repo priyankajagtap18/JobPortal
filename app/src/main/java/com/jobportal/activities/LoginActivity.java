@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,6 +19,7 @@ import com.jobportal.fragments.RegistrationFragment;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.listeners.ClickListner;
 import com.pixelcan.inkpageindicator.InkPageIndicator;
+
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +28,7 @@ import java.util.TimerTask;
  * Created by pravink on 23-05-2017.
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,ClickListner {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, ClickListner {
 
     private Context mContext;
     private Utilities mUtilities;
@@ -34,8 +36,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private InkPageIndicator inkPageIndicator;
     private int currentPage = 0;
     private AppCompatButton btn_submit;
-    private AppCompatEditText et_login_mob_num,et_login_password;
-    private TextInputLayout til_login_mobile_num,til_login_password;
+    private AppCompatEditText et_login_mob_num, et_login_password;
+    private TextInputLayout til_login_mobile_num, til_login_password;
+    private AppCompatTextView tv_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +54,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mUtilities = new Utilities(mContext);
         viewPager = (ViewPager) findViewById(R.id.pager);
         inkPageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
-        btn_submit=(AppCompatButton) findViewById(R.id.btn_submitr);
-        et_login_mob_num=(AppCompatEditText) findViewById(R.id.et_login_mob_num);
-        et_login_password=(AppCompatEditText) findViewById(R.id.et_login_confirm_password);
-        til_login_mobile_num=(TextInputLayout) findViewById(R.id.til_login_mobile_num);
-        til_login_password=(TextInputLayout) findViewById(R.id.til_login_password);
+        btn_submit = (AppCompatButton) findViewById(R.id.btn_submitr);
+        et_login_mob_num = (AppCompatEditText) findViewById(R.id.et_login_mob_num);
+        et_login_password = (AppCompatEditText) findViewById(R.id.et_login_confirm_password);
+        til_login_mobile_num = (TextInputLayout) findViewById(R.id.til_login_mobile_num);
+        til_login_password = (TextInputLayout) findViewById(R.id.til_login_password);
+        tv_register = (AppCompatTextView) findViewById(R.id.tv_register);
+        tv_register.setOnClickListener(this);
 
 
         btn_submit.setOnClickListener(this);
@@ -102,16 +107,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if(btn_submit.getText().toString().trim().equalsIgnoreCase("Continue"))
-        {
-            this.getClick(true);
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.tv_register:
+                intent = new Intent(this, RegistrationAct.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_submitr:
+                if (btn_submit.getText().toString().trim().equalsIgnoreCase("Continue")) {
+                    this.getClick(true);
+                } else {
+                    intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                break;
         }
-        else
-        {
-            Intent intent=new Intent(this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+
     }
 
     @Override
