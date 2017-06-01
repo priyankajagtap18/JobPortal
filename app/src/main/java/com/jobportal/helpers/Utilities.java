@@ -153,9 +153,9 @@ public class Utilities {
     /**
      * method to hide soft keypad
      */
-    public static void hideSoftInputKeypad(Context _context, Activity activity) {
+    public static void hideSoftInputKeypad(Activity _context) {
         InputMethodManager inputMethodManager = (InputMethodManager) _context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        View focusView = activity.getCurrentFocus();
+        View focusView = _context.getCurrentFocus();
         if (focusView != null) {
             IBinder iBinder = focusView.getWindowToken();
             if (iBinder != null)

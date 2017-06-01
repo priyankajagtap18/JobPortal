@@ -6,7 +6,7 @@ package com.jobportal.constants;
 public interface AppUrls {
 
 
-    String sHostURL = "https://techcenter.qatarsteel.com.qa/QatarAPI_v1.7/";
-    String sBaseURL = sHostURL + "webresources/api/";
-
+    String sBaseURL = "https://www.meerindia.com/my-local-app/ws/";
+    String sALLJobsURL = sBaseURL + "general.php";
+    String sRegisterURL = sBaseURL + "registration-login.php";
 }

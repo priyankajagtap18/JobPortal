@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jobportal.R;
+import com.jobportal.activities.MainActivity;
 import com.jobportal.adapters.TopRoleAdapter;
 import com.jobportal.constants.AppConstants;
-import com.jobportal.entities.TopRoles;
+import com.jobportal.entities.AllJob;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.listeners.AdapterResponseInterface;
+import com.jobportal.sync.SyncListener;
+import com.jobportal.sync.SyncManager;
 
 import java.util.ArrayList;
 
@@ -23,7 +26,10 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private TopRoleAdapter adapter;
     private RecyclerView mRvRoles;
     private Utilities mUtilities;
-    private ArrayList<TopRoles> alRoles;
+    private ArrayList<String> alRoles;
+    private SyncManager syncManager;
+    private SyncListener syncListener;
+    private MainActivity mainActivity;
 
     public FragmentHome() {
         // Required empty public constructor
@@ -40,6 +46,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
         if (getArguments() != null) {
         }
     }
@@ -50,7 +57,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View mRootView = inflater.inflate(R.layout.fragment_home, container, false);
         bindControls(mRootView);
-        setRolesAdapter();
         return mRootView;
     }
 
@@ -66,27 +72,59 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         mRootView.findViewById(R.id.internship_job).setOnClickListener(this);
         mRootView.findViewById(R.id.tv_hire_candidates).setOnClickListener(this);
         mRootView.findViewById(R.id.tv_premiun_job_seeker).setOnClickListener(this);
+        syncListener = new SyncListener() {
+            @Override
+            public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
+                Utilities.hideSoftInputKeypad(mainActivity);
+                if (taskId == SyncManager.ALL_JOBS) {
+                    ArrayList<AllJob> arrayList = (ArrayList<AllJob>) arrResult;
+
+                    if (arrayList != null && arrayList.size() > 0) {
+                        alRoles = arrayList.get(0).getJobCategories();
+                        setRolesAdapter();
+                    }
+                } else {
+                    onSyncFailure(taskId, getString(R.string.server_error));
+                }
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncFailure(int taskId, String message) {
+                Utilities.hideSoftInputKeypad(mainActivity);
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncProgressUpdate(String message) {
+
+            }
+        };
+
+        callAPI();
+    }
+
+    private void callAPI() {
+        if (alRoles == null || alRoles.size() == 0) {
+            syncManager = new SyncManager(mainActivity, SyncManager.ALL_JOBS, syncListener);
+            syncManager.getAllJobs();
+        } else {
+            setRolesAdapter();
+        }
     }
 
     private void setRolesAdapter() {
-        alRoles = new ArrayList<>();
-        for (int i = 0; i < 25; i++) {
-            TopRoles roles = new TopRoles();
-            roles.setRole("Job " + i);
-            alRoles.add(roles);
-        }
 
-        if (alRoles != null && alRoles.size() > 0) {
-            adapter = new TopRoleAdapter(getActivity(), alRoles, new AdapterResponseInterface() {
-                @Override
-                public void getAdapterResponse(Bundle bundle) {
-                    if (bundle != null) {
-                        alRoles.get(bundle.getInt(AppConstants.ADAPTER_POSITION));
-                    }
+        adapter = new TopRoleAdapter(getActivity(), alRoles, new AdapterResponseInterface() {
+            @Override
+            public void getAdapterResponse(Bundle bundle) {
+                if (bundle != null) {
+                    alRoles.get(bundle.getInt(AppConstants.ADAPTER_POSITION));
+                    mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new JobTypeFragment(), R.string.job_type, true);
                 }
-            });
-            mRvRoles.setAdapter(adapter);
-        }
+            }
+        });
+        mRvRoles.setAdapter(adapter);
 
     }
 
