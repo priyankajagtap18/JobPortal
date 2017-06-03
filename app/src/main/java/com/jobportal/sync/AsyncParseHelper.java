@@ -62,7 +62,12 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                     }
                     arrResult = alChannel;*/
                     break;
-
+                case SyncManager.REGISTRATION_CHECK:
+                    break;
+                case SyncManager.LOGIN:
+                    break;
+                case SyncManager.REGISTRATION:
+                    break;
                 default:
                     break;
             }

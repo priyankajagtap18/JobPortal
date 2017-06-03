@@ -21,7 +21,7 @@ public class SplashAct extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {
-                    startActivity(new Intent(SplashAct.this, RegistrationAct.class));
+                    startActivity(new Intent(SplashAct.this, LoginActivity.class));
                 }
             }
         };

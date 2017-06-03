@@ -21,7 +21,7 @@ public class SyncManager implements DownloadListener, ParseListener {
     private SyncListener listener;
     private int type;
     private Utilities utilities;
-    public static final int ALL_JOBS = 1, REGISTRATION = 2;
+    public static final int ALL_JOBS = 1, REGISTRATION = 2, REGISTRATION_CHECK = 3, LOGIN = 4;
 
 
     public SyncManager(Context context, int type, SyncListener listener) {
@@ -110,4 +110,26 @@ public class SyncManager implements DownloadListener, ParseListener {
         client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(REGISTRATION, SyncManager.this, arrResult));
     }
 
+    public void doRegistrationCheck(String value) {
+
+        AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
+        client.setTimeout(120000);
+        ArrayList<String> arrResult = new ArrayList<>();
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("check_sign_up", "1");
+        requestParams.add("login_credentials", value);
+        client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(REGISTRATION_CHECK, SyncManager.this, arrResult));
+    }
+
+    public void login(String value, String password) {
+
+        AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
+        client.setTimeout(120000);
+        ArrayList<String> arrResult = new ArrayList<>();
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("login_check", "1");
+        requestParams.add("login_credentials", value);
+        requestParams.add("password", password);
+        client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(LOGIN, SyncManager.this, arrResult));
+    }
 }
