@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.jobportal.R;
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SyncManager syncManager;
     private SyncListener syncListener;
     private LoginActivity loginActivity;
+    private AppCompatTextView tv_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         et_login_password = (AppCompatEditText) findViewById(R.id.et_login_confirm_password);
         til_login_mobile_num = (TextInputLayout) findViewById(R.id.til_login_mobile_num);
         til_login_password = (TextInputLayout) findViewById(R.id.til_login_password);
+        tv_register = (AppCompatTextView) findViewById(R.id.tv_register);
+        tv_register.setOnClickListener(this);
 
         syncListener = new SyncListener() {
             @Override
@@ -139,16 +143,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        mUtilities.showProgressDialog("Please wait..");
-        if (btn_submit.getText().toString().trim().equalsIgnoreCase("Continue")) {
-            String input = et_login_mob_num.getText().toString().trim();
-            syncManager.doRegistrationCheck(input);
-        } else {
-            String input = et_login_mob_num.getText().toString().trim();
-            String password = et_login_password.getText().toString().trim();
-            syncManager.login(input, password);
-
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.tv_register:
+                intent = new Intent(this, RegistrationAct.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_submitr:
+                if (btn_submit.getText().toString().trim().equalsIgnoreCase("Continue")) {
+                    this.getClick(true);
+                } else {
+                    intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                break;
         }
+
     }
 
     @Override

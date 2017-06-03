@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // private TopRoleAdapter adapter;
     // private RecyclerView mRvRoles;
     private RelativeLayout rel_profile;
+    private TextView tv_ads,tv_shortlisted_ads;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setListeners() {
-
+        tv_ads.setOnClickListener(this);
+        tv_shortlisted_ads.setOnClickListener(this);
     }
 
     private void bindControls() {
@@ -65,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mTvTitle = (TextView) mToolbar.findViewById(R.id.tv_title);
         rel_profile = (RelativeLayout) findViewById(R.id.rel_profile);
+        tv_ads=(TextView)mNavigationView.findViewById(R.id.tv_ads);
+        tv_shortlisted_ads=(TextView)mNavigationView.findViewById(R.id.tv_shortlisted_ads);
         //mRvRoles = (RecyclerView) mNavigationView.findViewById(R.id.rv_category);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
 //        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -163,9 +167,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.rel_profile:
-                Intent intent = new Intent(this, ProfileActivity.class);
+                intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_ads:
+                intent = new Intent(this, AdsPostActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_shortlisted_ads:
+                intent = new Intent(this, AdListActivity.class);
                 startActivity(intent);
                 break;
         }
