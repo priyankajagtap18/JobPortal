@@ -1,5 +1,6 @@
 package com.jobportal.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,31 +8,43 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jobportal.R;
+import com.jobportal.activities.MainActivity;
+import com.jobportal.activities.RegistrationAct;
 import com.jobportal.helpers.Utilities;
+import com.jobportal.sync.SyncListener;
+import com.jobportal.sync.SyncManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by pravink on 22-05-2017.
  */
 
-public class OTPFragment extends Fragment {
+public class OTPFragment extends Fragment implements View.OnClickListener {
 
     private Utilities mUtilities;
+    private String name, mobile, email, password;
+    private SyncManager syncManager;
+    private SyncListener syncListener;
+    private RegistrationAct registrationAct;
+
 
     public OTPFragment() {
         // Required empty public constructor
     }
 
-    public static OTPFragment newInstance() {
+    public static OTPFragment newInstance(Bundle bundle) {
         OTPFragment fragment = new OTPFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registrationAct = (RegistrationAct) getActivity();
         if (getArguments() != null) {
+
         }
     }
 
@@ -45,7 +58,46 @@ public class OTPFragment extends Fragment {
 
     private void bindControls(View mRootView) {
         mUtilities = new Utilities(getActivity());
+        mRootView.findViewById(R.id.btn_register).setOnClickListener(this);
+        syncListener = new SyncListener() {
+            @Override
+            public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
+                Utilities.hideSoftInputKeypad(registrationAct);
+                if (taskId == SyncManager.REGISTRATION) {
+                    ArrayList<String> arrayList = (ArrayList<String>) arrResult;
+                    if (!arrayList.get(0).isEmpty()) {
+                        startActivity(new Intent(registrationAct, MainActivity.class));
+                    } else {
+                        onSyncFailure(taskId, arrayList.get(0));
+                    }
 
+                } else {
+                    onSyncFailure(taskId, getString(R.string.server_error));
+                }
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncFailure(int taskId, String message) {
+                Utilities.hideSoftInputKeypad(registrationAct);
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncProgressUpdate(String message) {
+
+            }
+        };
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_register:
+                mUtilities.showProgressDialog(getString(R.string.please_wait));
+                syncManager = new SyncManager(registrationAct, SyncManager.REGISTRATION, syncListener);
+                syncManager.doRegistration(name, email, mobile, password);
+                break;
+        }
+    }
 }

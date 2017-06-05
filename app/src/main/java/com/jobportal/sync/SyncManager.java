@@ -21,7 +21,7 @@ public class SyncManager implements DownloadListener, ParseListener {
     private SyncListener listener;
     private int type;
     private Utilities utilities;
-    public static final int ALL_JOBS = 1, REGISTRATION = 2, REGISTRATION_CHECK = 3, LOGIN = 4;
+    public static final int ALL_JOBS = 1, REGISTRATION = 2, REGISTRATION_CHECK = 3, LOGIN = 4, GET_REGISTRATION_OTP = 5;
 
 
     public SyncManager(Context context, int type, SyncListener listener) {
@@ -131,5 +131,16 @@ public class SyncManager implements DownloadListener, ParseListener {
         requestParams.add("login_credentials", value);
         requestParams.add("password", password);
         client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(LOGIN, SyncManager.this, arrResult));
+    }
+
+    public void getRegistrationOTP(String mobile) {
+
+        AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
+        client.setTimeout(120000);
+        ArrayList<String> arrResult = new ArrayList<>();
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("sign_up_step1", "1");
+        requestParams.add("mobile", mobile);
+        client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(GET_REGISTRATION_OTP, SyncManager.this, arrResult));
     }
 }

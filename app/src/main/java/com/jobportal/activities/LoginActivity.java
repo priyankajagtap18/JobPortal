@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void bindControls() {
         mContext = this;
         loginActivity = this;
+
         mUtilities = new Utilities(mContext);
         viewPager = (ViewPager) findViewById(R.id.pager);
         inkPageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
@@ -72,12 +73,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Utilities.hideSoftInputKeypad(loginActivity);
                 switch (taskId) {
                     case SyncManager.REGISTRATION_CHECK:
-                        getClick(true);
+                        ArrayList<String> arrayList = (ArrayList<String>) arrResult;
+                        if (arrayList.get(0).equalsIgnoreCase("1")) {
+                            getClick(true);
+                        } else if (arrayList.get(0).equalsIgnoreCase("0")) {
+                            doRegister();
+                        } else {
+                            onSyncFailure(taskId, arrayList.get(0));
+                        }
                         break;
                     case SyncManager.LOGIN:
-                        Intent intent = new Intent(loginActivity, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        ArrayList<String> arrResult1 = (ArrayList<String>) arrResult;
+                        if (!arrResult1.get(0).isEmpty()) {
+                            Intent intent = new Intent(loginActivity, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
                         break;
                     default:
                         onSyncFailure(taskId, getString(R.string.server_error));
@@ -143,28 +155,65 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Intent intent;
+        Utilities.hideSoftInputKeypad(loginActivity);
         switch (v.getId()) {
             case R.id.tv_register:
-                intent = new Intent(this, RegistrationAct.class);
-                startActivity(intent);
+                doRegister();
                 break;
             case R.id.btn_submitr:
                 if (btn_submit.getText().toString().trim().equalsIgnoreCase("Continue")) {
-                    this.getClick(true);
+                    if (isValidMobileNo()) {
+                        mUtilities.showProgressDialog(getString(R.string.please_wait));
+                        syncManager = new SyncManager(loginActivity, SyncManager.REGISTRATION_CHECK, syncListener);
+                        syncManager.doRegistrationCheck(et_login_mob_num.getText().toString().trim());
+                    }
                 } else {
-                    intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if (isValidCredentials()) {
+                        mUtilities.showProgressDialog(getString(R.string.please_wait));
+                        syncManager = new SyncManager(loginActivity, SyncManager.LOGIN, syncListener);
+                        syncManager.login(et_login_mob_num.getText().toString().trim(), et_login_password.getText().toString().trim());
+                    }
                 }
                 break;
         }
 
     }
 
+    private boolean isValidCredentials() {
+        if (et_login_mob_num.getText().toString().trim().length() == 0) {
+            mUtilities.showToast("Please enter mobile no");
+            return false;
+        } else if (et_login_password.getText().toString().trim().length() == 0) {
+            mUtilities.showToast("Please enter password");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean isValidMobileNo() {
+        if (et_login_mob_num.getText().toString().trim().length() == 0) {
+            mUtilities.showToast("Please enter mobile no");
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+    private void doRegister() {
+        Intent intent = new Intent(this, RegistrationAct.class);
+        startActivity(intent);
+    }
+
     @Override
     public void getClick(boolean isClick) {
         btn_submit.setText("Submit");
         til_login_password.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void getClick(boolean isClick, Bundle bundle) {
+
     }
 }

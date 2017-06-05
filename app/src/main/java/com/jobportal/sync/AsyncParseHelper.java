@@ -4,8 +4,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
+import com.jobportal.R;
 import com.jobportal.entities.AllJob;
 import com.jobportal.helpers.Utilities;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +37,17 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
     @Override
     protected ArrayList<?> doInBackground(String... params) {
         String response = params[0];
+        ArrayList<String> result;
         try {
             switch (taskId) {
                 case SyncManager.ALL_JOBS:
-                    AllJob allJobs = new Gson().fromJson(response, AllJob.class);
-                    ArrayList<AllJob> jobs = new ArrayList<AllJob>(Arrays.asList(allJobs));
+                    ArrayList<AllJob> jobs = new ArrayList<>();
+                    if (isDataPresent(response)) {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        AllJob allJobs = new Gson().fromJson(object.toString(), AllJob.class);
+                        jobs = new ArrayList<AllJob>(Arrays.asList(allJobs));
+                    }
+
                     arrResult = jobs;
                   /*  Channel channel = new Channel(context);
                     ArrayList<Channel> alChannel = new ArrayList<Channel>();
@@ -63,10 +73,49 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                     arrResult = alChannel;*/
                     break;
                 case SyncManager.REGISTRATION_CHECK:
+                    result = new ArrayList<>();
+                    if (isDataPresent(response)) {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        result.add(object.getString("account_exist"));
+                    } else {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        result.add(object.getString("error"));
+                    }
+                    arrResult = result;
+                    break;
+
+                case SyncManager.GET_REGISTRATION_OTP:
+                    result = new ArrayList<>();
+                    if (isDataPresent(response)) {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        result.add(object.getString("otp"));
+                    } else {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        result.add(object.getString("error"));
+                    }
+                    arrResult = result;
                     break;
                 case SyncManager.LOGIN:
+                    result = new ArrayList<>();
+                    if (isDataPresent(response)) {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        // result.add(object.getString("login"));
+                    } else {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        result.add(object.getString("error"));
+                    }
+                    arrResult = result;
                     break;
                 case SyncManager.REGISTRATION:
+                    result = new ArrayList<>();
+                    if (isDataPresent(response)) {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        result.add(object.getString("otp"));
+                    } else {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        result.add(object.getString("error"));
+                    }
+                    arrResult = result;
                     break;
                 default:
                     break;
@@ -82,6 +131,21 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
     protected void onPostExecute(ArrayList<?> arrResult) {
         super.onPostExecute(arrResult);
         listener.onParseSuccess(taskId, "", arrResult);
+    }
+
+    private boolean isDataPresent(String response) {
+        String jsonObject = null;
+        String successMessage = null;
+        try {
+            jsonObject = ((new JSONObject(response)).getString(context.getString(R.string.status)));
+            successMessage = ((new JSONObject(response)).getString(context.getString(R.string.message)));
+            if (jsonObject.toString().equalsIgnoreCase(context.getString(R.string.success_code)) && successMessage.toString().equalsIgnoreCase(context.getString(R.string.success))) {
+                return true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

@@ -30,9 +30,9 @@ public class RegistrationAct extends AppCompatActivity implements ClickListner {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         bindControls();
-        setTitle("Register");
+        setTitle(getString(R.string.register));
         setListeners();
-        mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new RegistrationFragment(), R.string.hello_fragment, false);
+        mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new RegistrationFragment(), R.string.register, false);
     }
 
     private void setListeners() {
@@ -73,8 +73,16 @@ public class RegistrationAct extends AppCompatActivity implements ClickListner {
     @Override
     public void getClick(boolean isClick) {
         if (isClick) {
-            mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new OTPFragment(), R.string.hello_fragment, true);
-            setTitle("OTP");
+            // mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new OTPFragment(), R.string.OTP, true);
+            //setTitle(R.string.OTP);
         }
+    }
+
+    @Override
+    public void getClick(boolean isClick, Bundle bundle) {
+        if (isClick) {
+            mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, this, new OTPFragment().newInstance(bundle), R.string.OTP, true);
+        }
+
     }
 }

@@ -131,9 +131,9 @@ public class Utilities {
     }
 
 
-    public static void showToast(Context mContext, String strMessage) {
+    public void showToast(String strMessage) {
         Toast toast;
-        toast = Toast.makeText(mContext.getApplicationContext(), strMessage, Toast.LENGTH_SHORT);
+        toast = Toast.makeText(context.getApplicationContext(), strMessage, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.BOTTOM, 0, 0);
         toast.show();
     }
@@ -371,4 +371,5 @@ public class Utilities {
         GradientDrawable bgShape = (GradientDrawable) mView.getBackground();
         bgShape.setColor(ContextCompat.getColor(mContext, mColor));
     }
+
 }

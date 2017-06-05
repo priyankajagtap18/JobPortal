@@ -82,6 +82,8 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
                     if (arrayList != null && arrayList.size() > 0) {
                         alRoles = arrayList.get(0).getJobCategories();
                         setRolesAdapter();
+                    } else {
+                        onSyncFailure(taskId, getString(R.string.server_error));
                     }
                 } else {
                     onSyncFailure(taskId, getString(R.string.server_error));
@@ -106,6 +108,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     private void callAPI() {
         if (alRoles == null || alRoles.size() == 0) {
+            mUtilities.showProgressDialog(getString(R.string.please_wait));
             syncManager = new SyncManager(mainActivity, SyncManager.ALL_JOBS, syncListener);
             syncManager.getAllJobs();
         } else {
@@ -114,18 +117,18 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     }
 
     private void setRolesAdapter() {
-
-        adapter = new TopRoleAdapter(getActivity(), alRoles, new AdapterResponseInterface() {
-            @Override
-            public void getAdapterResponse(Bundle bundle) {
-                if (bundle != null) {
-                    alRoles.get(bundle.getInt(AppConstants.ADAPTER_POSITION));
-                    mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new JobTypeFragment(), R.string.job_type, true);
+        if (alRoles != null && alRoles.size() > 0) {
+            adapter = new TopRoleAdapter(getActivity(), alRoles, new AdapterResponseInterface() {
+                @Override
+                public void getAdapterResponse(Bundle bundle) {
+                    if (bundle != null) {
+                        alRoles.get(bundle.getInt(AppConstants.ADAPTER_POSITION));
+                        mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new JobTypeFragment(), R.string.job_type, true);
+                    }
                 }
-            }
-        });
-        mRvRoles.setAdapter(adapter);
-
+            });
+            mRvRoles.setAdapter(adapter);
+        }
     }
 
     @Override

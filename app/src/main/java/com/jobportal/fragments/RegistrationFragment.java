@@ -29,6 +29,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private SyncManager syncManager;
     private SyncListener syncListener;
     private RegistrationAct mainActivity;
+    private String name, mobile, email, password;
 
     public RegistrationFragment() {
         // Required empty public constructor
@@ -70,7 +71,19 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             @Override
             public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
                 Utilities.hideSoftInputKeypad(mainActivity);
-                if (taskId == SyncManager.REGISTRATION) {
+                if (taskId == SyncManager.GET_REGISTRATION_OTP) {
+                    ArrayList<String> arrayList = (ArrayList<String>) arrResult;
+                    if (!arrayList.get(0).isEmpty()) {
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", name);
+                        bundle.putString("mobile", mobile);
+                        bundle.putString("email", email);
+                        bundle.putString("password", password);
+                        ((ClickListner) getActivity()).getClick(true, bundle);
+                    } else {
+                        onSyncFailure(taskId, arrayList.get(0));
+                    }
 
                 } else {
                     onSyncFailure(taskId, getString(R.string.server_error));
@@ -94,14 +107,41 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        Utilities.hideSoftInputKeypad(mainActivity);
         switch (v.getId()) {
             case R.id.btn_register:
-                syncManager = new SyncManager(mainActivity, SyncManager.REGISTRATION, syncListener);
-                syncManager.doRegistration(et_login_name.getText().toString().trim(),
-                        et_login_email.getText().toString().trim(), et_login_mob_num.getText().toString().trim(),
-                        et_login_password.getText().toString().trim());
-                ((ClickListner) getActivity()).getClick(true);
+                name = et_login_name.getText().toString().trim();
+                mobile = et_login_mob_num.getText().toString().trim();
+                email = et_login_email.getText().toString().trim();
+                password = et_login_password.getText().toString().trim();
+                if (isValidCredentials()) {
+                    mUtilities.showProgressDialog(getString(R.string.please_wait));
+                    syncManager = new SyncManager(mainActivity, SyncManager.GET_REGISTRATION_OTP, syncListener);
+                    syncManager.getRegistrationOTP(mobile);
+                }
                 break;
+        }
+
+    }
+
+    private boolean isValidCredentials() {
+        if (name.length() == 0) {
+            mUtilities.showToast("Please enter name");
+            return false;
+        } else if (mobile.length() == 0) {
+            mUtilities.showToast("Please enter mobile no");
+            return false;
+        } else if (email.length() == 0) {
+            mUtilities.showToast("Please enter email id");
+            return false;
+        } else if (password.length() == 0) {
+            mUtilities.showToast("Please enter password");
+            return false;
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mUtilities.showToast("Please enter valid email id");
+            return false;
+        } else {
+            return true;
         }
 
     }

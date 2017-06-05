@@ -17,14 +17,20 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.jobportal.activities.MainActivity"
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
+
+        </activity>
 
         <activity
             android:name="com.jobportal.activities.RegistrationAct"
@@ -37,7 +43,9 @@
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize"></activity>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
+
+        </activity>
         <activity
             android:name="com.jobportal.activities.ProfileActivity"
             android:configChanges="keyboard|screenSize|orientation"
@@ -94,11 +102,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 </manifest>
