@@ -75,6 +75,8 @@ public class AdListFragment extends Fragment  {
                 public void getAdapterResponse(Bundle bundle) {
                     if (bundle != null) {
                       //  aList.get(bundle.getInt(AppConstants.ADAPTER_POSITION));
+
+
                     }
                 }
             });
@@ -82,6 +84,4 @@ public class AdListFragment extends Fragment  {
 
 
     }
-
-
 }

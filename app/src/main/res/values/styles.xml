@@ -102,7 +102,16 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/black</item>
     </style>
-
+    <style name="tvMediumBlack">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="tvMediumBlueGray">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/colorGrayBlue</item>
+    </style>
     <style name="tvMediumBoldBlue">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>

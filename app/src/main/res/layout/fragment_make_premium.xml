@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatTextView
+        style="@style/tvMediumBlack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:text="Give More Reachability TO Your Ad" />
+
+    <android.support.v7.widget.AppCompatTextView
+        style="@style/tvMediumLightGray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:text="Ads can reach over 30 million buyers and Sellers" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorLightGray"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/tvMediumBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Number of applications are 10 times more" />
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/tvMediumBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Valid for 10 days" />
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/tvMediumBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Access all applications" />
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/tvMediumBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Featured in Top Jobs on Website App" />
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/tvMediumBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Number of applications are 10 times more" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatButton
+        style="@style/btn_blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Make Premium" />
+
+</LinearLayout>
