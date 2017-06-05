@@ -11,13 +11,13 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
-import android.widget.Button;
 
 import com.jobportal.R;
 import com.jobportal.adapters.CustomPagerAdapter;
-import com.jobportal.fragments.RegistrationFragment;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.listeners.ClickListner;
+import com.jobportal.sync.SyncListener;
+import com.jobportal.sync.SyncManager;
 import com.pixelcan.inkpageindicator.InkPageIndicator;
 
 import java.util.ArrayList;
@@ -38,6 +38,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private AppCompatButton btn_submit;
     private AppCompatEditText et_login_mob_num, et_login_password;
     private TextInputLayout til_login_mobile_num, til_login_password;
+    private SyncManager syncManager;
+    private SyncListener syncListener;
+    private LoginActivity loginActivity;
     private AppCompatTextView tv_register;
 
     @Override
@@ -51,6 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void bindControls() {
         mContext = this;
+        loginActivity = this;
         mUtilities = new Utilities(mContext);
         viewPager = (ViewPager) findViewById(R.id.pager);
         inkPageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
@@ -62,6 +66,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tv_register = (AppCompatTextView) findViewById(R.id.tv_register);
         tv_register.setOnClickListener(this);
 
+        syncListener = new SyncListener() {
+            @Override
+            public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
+                Utilities.hideSoftInputKeypad(loginActivity);
+                switch (taskId) {
+                    case SyncManager.REGISTRATION_CHECK:
+                        getClick(true);
+                        break;
+                    case SyncManager.LOGIN:
+                        Intent intent = new Intent(loginActivity, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                    default:
+                        onSyncFailure(taskId, getString(R.string.server_error));
+                        break;
+                }
+
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncFailure(int taskId, String message) {
+                Utilities.hideSoftInputKeypad(loginActivity);
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncProgressUpdate(String message) {
+
+            }
+        };
 
         btn_submit.setOnClickListener(this);
     }
