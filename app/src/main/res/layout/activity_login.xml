@@ -110,7 +110,7 @@
                 style="@style/tvMediumBoldBlue"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="Register here"/>
+                android:text="Register here" />
         </LinearLayout>
 
         <LinearLayout

@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // private TopRoleAdapter adapter;
     // private RecyclerView mRvRoles;
     private RelativeLayout rel_profile;
-    private TextView tv_ads,tv_shortlisted_ads;
+    private TextView tv_ads, tv_shortlisted_ads;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mNavigationView = (NavigationView) findViewById(R.id.navigation_view);
         mTvTitle = (TextView) mToolbar.findViewById(R.id.tv_title);
         rel_profile = (RelativeLayout) findViewById(R.id.rel_profile);
-        tv_ads=(TextView)mNavigationView.findViewById(R.id.tv_ads);
-        tv_shortlisted_ads=(TextView)mNavigationView.findViewById(R.id.tv_shortlisted_ads);
+        tv_ads = (TextView) mNavigationView.findViewById(R.id.tv_ads);
+        tv_shortlisted_ads = (TextView) mNavigationView.findViewById(R.id.tv_shortlisted_ads);
         //mRvRoles = (RecyclerView) mNavigationView.findViewById(R.id.rv_category);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
 //        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
