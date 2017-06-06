@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.jobportal.R;
 import com.jobportal.constants.AppConstants;
-import com.jobportal.fragments.MyAccountFragment;
+import com.jobportal.fragments.NotificationAndMessagesFragment;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.utils.UIUtils;
 

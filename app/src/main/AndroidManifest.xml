@@ -106,6 +106,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
+
+        </activity>
+        <activity
+            android:name="com.jobportal.activities.AlertInfoActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
+        </activity>
+        <activity
+            android:name="com.jobportal.activities.NotificationActivity"
+            android:configChanges="keyboard|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
