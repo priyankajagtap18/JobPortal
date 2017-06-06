@@ -74,7 +74,8 @@
                     android:digits="0123456789"
                     android:hint="Enter Mobile number or Email"
                     android:inputType="number"
-                    android:maxLength="12" />
+                    android:maxLength="12"
+                    android:text="9673060220" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -93,7 +94,8 @@
                     android:layout_width="match_parent"
                     android:hint="Enter Password"
                     android:inputType="textPassword"
-                    android:maxLength="40" />
+                    android:maxLength="40"
+                    android:text="test@123" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -110,11 +112,11 @@
                 android:id="@+id/tv_register"
                 style="@style/tvMediumBoldBlue"
                 android:layout_width="wrap_content"
-                android:layout_margin="10dp"
-                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:text="Register here" />
+                android:layout_margin="10dp"
+                android:text="Register here"
+                android:textSize="18dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -137,9 +139,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="42dp"
-                    android:adjustViewBounds="true"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/ic_fb" />
 
             </LinearLayout>

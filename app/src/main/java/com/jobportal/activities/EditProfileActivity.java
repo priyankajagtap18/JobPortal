@@ -19,7 +19,7 @@ import com.jobportal.utils.UIUtils;
  * Created by pravink on 24-05-2017.
  */
 
-public class EditProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
+public class EditProfileActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
     private Context mContext;
     private Utilities mUtilities;
@@ -27,8 +27,9 @@ public class EditProfileActivity extends AppCompatActivity implements AppBarLayo
     private CollapsingToolbarLayout collapsingToolbar;
     private AppBarLayout appBarLayout;
     private TextView mTvTitle;
-    private boolean isShow      = false;
-    private int     scrollRange = -1;
+    private boolean isShow = false;
+    private int scrollRange = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class EditProfileActivity extends AppCompatActivity implements AppBarLayo
         mUtilities = new Utilities(mContext);
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
-        mTvTitle=(TextView) findViewById(R.id.tv_title);
+        mTvTitle = (TextView) findViewById(R.id.tv_title);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -91,11 +92,11 @@ public class EditProfileActivity extends AppCompatActivity implements AppBarLayo
         if (scrollRange + verticalOffset == 0) {
             collapsingToolbar.setTitle("My Account");
             isShow = true;
-            UIUtils.showToast(this,"HI");
+            UIUtils.showToast(this, "HI");
             // scroll.setEnabled(false);
         } else if (isShow) {
             collapsingToolbar.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
-            UIUtils.showToast(this,"HI");
+            UIUtils.showToast(this, "HI");
             // scroll.setEnabled(true);
         }
     }

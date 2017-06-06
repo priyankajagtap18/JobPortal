@@ -44,7 +44,10 @@ public class OTPFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         registrationAct = (RegistrationAct) getActivity();
         if (getArguments() != null) {
-
+            name = getArguments().getString("name");
+            mobile = getArguments().getString("mobile");
+            email = getArguments().getString("email");
+            password = getArguments().getString("password");
         }
     }
 
@@ -63,14 +66,15 @@ public class OTPFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
                 Utilities.hideSoftInputKeypad(registrationAct);
-                if (taskId == SyncManager.REGISTRATION) {
-                    ArrayList<String> arrayList = (ArrayList<String>) arrResult;
-                    if (!arrayList.get(0).isEmpty()) {
-                        startActivity(new Intent(registrationAct, MainActivity.class));
-                    } else {
-                        onSyncFailure(taskId, arrayList.get(0));
-                    }
+                if (arrResult != null) {
+                    /*if (arrResult.size() > 0) */
+                    {
+                        if (taskId == SyncManager.REGISTRATION) {
+                            //ArrayList<String> arrayList = (ArrayList<String>) arrResult;
+                            startActivity(new Intent(registrationAct, MainActivity.class));
 
+                        }
+                    }
                 } else {
                     onSyncFailure(taskId, getString(R.string.server_error));
                 }

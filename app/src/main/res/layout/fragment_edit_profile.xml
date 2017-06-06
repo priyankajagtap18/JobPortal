@@ -99,6 +99,9 @@
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/et_login_current_password"
                 style="@style/etBlueBlack"
+                android:focusable="false"
+                android:editable="false"
+                android:clickable="false"
                 android:layout_width="match_parent"
                 android:hint="Enter Current Password"
                 android:inputType="textPassword"
@@ -130,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
+            android:visibility="gone"
             android:theme="@style/custom_til_blue">
 
             <android.support.v7.widget.AppCompatEditText

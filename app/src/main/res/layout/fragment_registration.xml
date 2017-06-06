@@ -47,6 +47,7 @@
                     style="@style/etBlueBlack"
                     android:layout_width="match_parent"
                     android:hint="Name"
+                    android:text="ddddd"
                     android:inputType="text"
                     android:maxLength="50" />
 
@@ -83,6 +84,7 @@
                     style="@style/etBlueBlack"
                     android:layout_width="match_parent"
                     android:hint="Password"
+                    android:text="test@123"
                     android:inputType="textPassword"
                     android:maxLength="50" />
 

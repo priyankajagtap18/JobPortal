@@ -17,8 +17,10 @@ import android.widget.TextView;
 
 import com.jobportal.R;
 import com.jobportal.constants.AppConstants;
+import com.jobportal.entities.Login;
 import com.jobportal.entities.TopRoles;
 import com.jobportal.fragments.FragmentHome;
+import com.jobportal.helpers.PreferenceHandler;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.sync.SyncListener;
 import com.jobportal.sync.SyncManager;
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // private TopRoleAdapter adapter;
     // private RecyclerView mRvRoles;
     private RelativeLayout rel_profile;
-    private TextView tv_ads, tv_shortlisted_ads,tv_notifications;
+    private TextView tv_ads, tv_shortlisted_ads, tv_notifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         tv_ads = (TextView) mNavigationView.findViewById(R.id.tv_ads);
         tv_shortlisted_ads = (TextView) mNavigationView.findViewById(R.id.tv_shortlisted_ads);
         tv_notifications = (TextView) mNavigationView.findViewById(R.id.tv_notifications);
+        Login login = (Login) PreferenceHandler.readObject(mContext, AppConstants.PREF_LOGIN, null, Login.class);
         //mRvRoles = (RecyclerView) mNavigationView.findViewById(R.id.rv_category);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
 //        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -184,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
                 break;
             case R.id.tv_notifications:
-                intent = new Intent(this,MessagesAndNotificationActivity.class);
+                intent = new Intent(this, MessagesAndNotificationActivity.class);
                 startActivity(intent);
                 break;
         }

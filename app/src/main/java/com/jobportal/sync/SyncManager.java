@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.jobportal.constants.AppUrls;
 import com.jobportal.entities.AllJob;
+import com.jobportal.entities.EditProfile;
+import com.jobportal.entities.Login;
+import com.jobportal.entities.MyAccount;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.network.DownloadHandler;
 import com.jobportal.network.DownloadListener;
@@ -21,7 +24,7 @@ public class SyncManager implements DownloadListener, ParseListener {
     private SyncListener listener;
     private int type;
     private Utilities utilities;
-    public static final int ALL_JOBS = 1, REGISTRATION = 2, REGISTRATION_CHECK = 3, LOGIN = 4, GET_REGISTRATION_OTP = 5;
+    public static final int ALL_JOBS = 1, REGISTRATION = 2, REGISTRATION_CHECK = 3, LOGIN = 4, GET_REGISTRATION_OTP = 5, MY_ACCOUNT = 6, EDIT_PROFILE = 7;
 
 
     public SyncManager(Context context, int type, SyncListener listener) {
@@ -100,7 +103,7 @@ public class SyncManager implements DownloadListener, ParseListener {
 
         AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
         client.setTimeout(120000);
-        ArrayList<AllJob> arrResult = new ArrayList<>();
+        ArrayList<String> arrResult = new ArrayList<>();
         RequestParams requestParams = new RequestParams();
         requestParams.add("sign_up_step1", "1");
         requestParams.add("mobile", mobile);
@@ -125,7 +128,7 @@ public class SyncManager implements DownloadListener, ParseListener {
 
         AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
         client.setTimeout(120000);
-        ArrayList<String> arrResult = new ArrayList<>();
+        ArrayList<Login> arrResult = new ArrayList<>();
         RequestParams requestParams = new RequestParams();
         requestParams.add("login_check", "1");
         requestParams.add("login_credentials", value);
@@ -142,5 +145,34 @@ public class SyncManager implements DownloadListener, ParseListener {
         requestParams.add("sign_up_step1", "1");
         requestParams.add("mobile", mobile);
         client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(GET_REGISTRATION_OTP, SyncManager.this, arrResult));
+    }
+
+    public void getMyAccount(String custId) {
+        AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
+        client.setTimeout(120000);
+        ArrayList<MyAccount> arrResult = new ArrayList<>();
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("my_account", "1");
+        requestParams.add("cust_id", custId);
+        client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(MY_ACCOUNT, SyncManager.this, arrResult));
+    }
+
+    public void editProfile(String custId, String profilePic, String name, String address, String mobile,
+                            String email, String emailChange, String password, String passwordChange) {
+        AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
+        client.setTimeout(120000);
+        ArrayList<EditProfile> arrResult = new ArrayList<>();
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("edit_profile", "1");
+        requestParams.add("profile_pic", profilePic);
+        requestParams.add("name", name);
+        requestParams.add("cust_id", custId);
+        requestParams.add("address", address);
+        requestParams.add("mobile", mobile);
+        requestParams.add("email", email);
+        requestParams.add("email_change", emailChange);
+        requestParams.add("password", passwordChange);
+        requestParams.add("current_password", password);
+        client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(EDIT_PROFILE, SyncManager.this, arrResult));
     }
 }

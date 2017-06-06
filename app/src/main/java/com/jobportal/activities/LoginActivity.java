@@ -14,6 +14,9 @@ import android.view.View;
 
 import com.jobportal.R;
 import com.jobportal.adapters.CustomPagerAdapter;
+import com.jobportal.constants.AppConstants;
+import com.jobportal.entities.Login;
+import com.jobportal.helpers.PreferenceHandler;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.listeners.ClickListner;
 import com.jobportal.sync.SyncListener;
@@ -61,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         inkPageIndicator = (InkPageIndicator) findViewById(R.id.indicator);
         btn_submit = (AppCompatButton) findViewById(R.id.btn_submitr);
         et_login_mob_num = (AppCompatEditText) findViewById(R.id.et_login_mob_num);
-        et_login_password = (AppCompatEditText) findViewById(R.id.et_login_confirm_password);
+        et_login_password = (AppCompatEditText) findViewById(R.id.et_login_password);
         til_login_mobile_num = (TextInputLayout) findViewById(R.id.til_login_mobile_num);
         til_login_password = (TextInputLayout) findViewById(R.id.til_login_password);
         tv_register = (AppCompatTextView) findViewById(R.id.tv_register);
@@ -71,31 +74,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
                 Utilities.hideSoftInputKeypad(loginActivity);
-                switch (taskId) {
-                    case SyncManager.REGISTRATION_CHECK:
-                        ArrayList<String> arrayList = (ArrayList<String>) arrResult;
-                        if (arrayList.get(0).equalsIgnoreCase("1")) {
-                            getClick(true);
-                        } else if (arrayList.get(0).equalsIgnoreCase("0")) {
-                            doRegister();
-                        } else {
-                            onSyncFailure(taskId, arrayList.get(0));
-                        }
-                        break;
-                    case SyncManager.LOGIN:
-                        ArrayList<String> arrResult1 = (ArrayList<String>) arrResult;
-                        if (!arrResult1.get(0).isEmpty()) {
-                            Intent intent = new Intent(loginActivity, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
+                if (arrResult != null) {
+                    if (arrResult.size() > 0) {
+                        switch (taskId) {
+                            case SyncManager.REGISTRATION_CHECK:
 
-                        break;
-                    default:
+                                ArrayList<String> arrayList = (ArrayList<String>) arrResult;
+                                if (arrayList.get(0).equalsIgnoreCase("1")) {
+                                    getClick(true);
+                                } else if (arrayList.get(0).equalsIgnoreCase("0")) {
+                                    doRegister();
+                                } else {
+                                    onSyncFailure(taskId, arrayList.get(0));
+                                }
+                                break;
+                            case SyncManager.LOGIN:
+                                ArrayList<Login> logins = (ArrayList<Login>) arrResult;
+                                if (logins.get(0).isSuccess()) {
+                                    logins.get(0).setPassword(et_login_password.getText().toString().trim());
+                                    PreferenceHandler.writeObject(loginActivity, AppConstants.PREF_LOGIN, logins.get(0));
+                                    Intent intent = new Intent(loginActivity, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    onSyncFailure(taskId, logins.get(0).getError());
+                                }
+
+                                break;
+                            default:
+                                onSyncFailure(taskId, getString(R.string.server_error));
+                                break;
+                        }
+                    } else {
                         onSyncFailure(taskId, getString(R.string.server_error));
-                        break;
+                    }
+                } else {
+                    onSyncFailure(taskId, getString(R.string.server_error));
                 }
-
                 mUtilities.hideProgressDialog();
             }
 

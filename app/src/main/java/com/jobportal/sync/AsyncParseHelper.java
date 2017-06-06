@@ -6,6 +6,10 @@ import android.os.AsyncTask;
 import com.google.gson.Gson;
 import com.jobportal.R;
 import com.jobportal.entities.AllJob;
+import com.jobportal.entities.Authenticate;
+import com.jobportal.entities.EditProfile;
+import com.jobportal.entities.Login;
+import com.jobportal.entities.MyAccount;
 import com.jobportal.helpers.Utilities;
 
 import org.json.JSONException;
@@ -37,7 +41,7 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
     @Override
     protected ArrayList<?> doInBackground(String... params) {
         String response = params[0];
-        ArrayList<String> result;
+        ArrayList<Authenticate> result;
         try {
             switch (taskId) {
                 case SyncManager.ALL_JOBS:
@@ -73,49 +77,94 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                     arrResult = alChannel;*/
                     break;
                 case SyncManager.REGISTRATION_CHECK:
-                    result = new ArrayList<>();
-                    if (isDataPresent(response)) {
-                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                        result.add(object.getString("account_exist"));
-                    } else {
-                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                        result.add(object.getString("error"));
+                    if (response != null) {
+                        ArrayList<String> reg_check = new ArrayList<>();
+
+                        if (isDataPresent(response)) {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            reg_check.add(object.getString("account_exist"));
+                        } else {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            reg_check.add(object.getString("error"));
+                        }
+                        arrResult = reg_check;
                     }
-                    arrResult = result;
                     break;
 
                 case SyncManager.GET_REGISTRATION_OTP:
-                    result = new ArrayList<>();
-                    if (isDataPresent(response)) {
-                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                        result.add(object.getString("otp"));
-                    } else {
-                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                        result.add(object.getString("error"));
+                    if (response != null) {
+                        ArrayList<String> otp = new ArrayList<>();
+                        if (isDataPresent(response)) {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            otp.add(object.getString("otp"));
+                        } else {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            otp.add(object.getString("error"));
+                        }
+                        arrResult = otp;
                     }
-                    arrResult = result;
                     break;
                 case SyncManager.LOGIN:
-                    result = new ArrayList<>();
-                    if (isDataPresent(response)) {
-                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                        // result.add(object.getString("login"));
-                    } else {
-                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                        result.add(object.getString("error"));
+                    if (response != null) {
+                        ArrayList<Login> logins = new ArrayList<>();
+                        if (isDataPresent(response)) {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            Login login = new Gson().fromJson(object.toString(), Login.class);
+                            login.setSuccess(true);
+                            logins.add(login);
+                        } else {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            Login login = new Login();
+                            login.setSuccess(false);
+                            login.setError(object.toString());
+                            logins.add(login);
+                        }
+                        arrResult = logins;
                     }
-                    arrResult = result;
                     break;
                 case SyncManager.REGISTRATION:
-                    result = new ArrayList<>();
-                    if (isDataPresent(response)) {
-                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                        result.add(object.getString("otp"));
-                    } else {
-                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                        result.add(object.getString("error"));
+                    ArrayList<String> register = new ArrayList<>();
+                    if (response != null) {
+
+                        if (isDataPresent(response)) {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            //result.add(object.getString("otp"));
+                        } else {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            // result.add(object.getString("error"));
+                        }
+                        arrResult = register;
                     }
-                    arrResult = result;
+                    break;
+                case SyncManager.MY_ACCOUNT:
+                    ArrayList<MyAccount> myAccounts = new ArrayList<>();
+                    if (response != null) {
+
+                        if (isDataPresent(response)) {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            MyAccount account = new Gson().fromJson(object.toString(), MyAccount.class);
+                            myAccounts.add(account);
+                        } else {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            // result.add(object.getString("error"));
+                        }
+                        arrResult = myAccounts;
+                    }
+                    break;
+                case SyncManager.EDIT_PROFILE:
+                    ArrayList<EditProfile> editProfiles = new ArrayList<>();
+                    if (response != null) {
+
+                        if (isDataPresent(response)) {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            EditProfile editProfile = new Gson().fromJson(object.toString(), EditProfile.class);
+                            editProfiles.add(editProfile);
+                        } else {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            // result.add(object.getString("error"));
+                        }
+                        arrResult = editProfiles;
+                    }
                     break;
                 default:
                     break;

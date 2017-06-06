@@ -12,5 +12,6 @@ public interface AppConstants {
     String TYPE_CLICKED = "type_clicked";
     String TYPE_BUTTON = "type_button";
     String TYPE_LAYOUT = "type_layout";
+    String PREF_LOGIN = "pref_login";
 
 }

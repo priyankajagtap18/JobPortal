@@ -2,13 +2,23 @@ package com.jobportal.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jobportal.R;
+import com.jobportal.activities.EditProfileActivity;
+import com.jobportal.constants.AppConstants;
+import com.jobportal.entities.EditProfile;
+import com.jobportal.entities.Login;
+import com.jobportal.helpers.PreferenceHandler;
 import com.jobportal.helpers.Utilities;
-import com.jobportal.listeners.ClickListner;
+import com.jobportal.sync.SyncListener;
+import com.jobportal.sync.SyncManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by pravink on 24-05-2017.
@@ -17,6 +27,12 @@ import com.jobportal.listeners.ClickListner;
 public class EditProfileFragment extends Fragment implements View.OnClickListener {
 
     private Utilities mUtilities;
+    private SyncManager syncManager;
+    private SyncListener syncListener;
+    private EditProfileActivity editProfileActivity;
+    private AppCompatEditText et_login_name, et_login_mob_num, et_login_email, et_login_current_password, et_login_new_password;
+    private AppCompatSpinner sp_apna_service_categories;
+    private Login login;
 
     public EditProfileFragment() {
         // Required empty public constructor
@@ -32,6 +48,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        editProfileActivity = (EditProfileActivity) getActivity();
         if (getArguments() != null) {
         }
     }
@@ -45,11 +62,69 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
     }
 
     private void bindControls(View mRootView) {
+
+        login = (Login) PreferenceHandler.readObject(editProfileActivity, AppConstants.PREF_LOGIN, null, Login.class);
         mUtilities = new Utilities(getActivity());
+        et_login_name = (AppCompatEditText) mRootView.findViewById(R.id.et_login_name);
+        et_login_current_password = (AppCompatEditText) mRootView.findViewById(R.id.et_login_current_password);
+        et_login_mob_num = (AppCompatEditText) mRootView.findViewById(R.id.et_login_mob_num);
+        et_login_email = (AppCompatEditText) mRootView.findViewById(R.id.et_login_email);
+        et_login_name = (AppCompatEditText) mRootView.findViewById(R.id.et_login_name);
+        et_login_new_password = (AppCompatEditText) mRootView.findViewById(R.id.et_login_new_password);
+        sp_apna_service_categories = (AppCompatSpinner) mRootView.findViewById(R.id.sp_apna_service_categories);
+        mRootView.findViewById(R.id.btn_save).setOnClickListener(this);
+        syncListener = new SyncListener() {
+            @Override
+            public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
+                Utilities.hideSoftInputKeypad(editProfileActivity);
+                if (arrResult != null) {
+                    if (arrResult.size() > 0) {
+                        switch (taskId) {
+                            case SyncManager.EDIT_PROFILE:
+                                ArrayList<EditProfile> arrayList = (ArrayList<EditProfile>) arrResult;
+                                mUtilities.showToast("Profile updated successfully");
+                                break;
+                            default:
+                                onSyncFailure(taskId, getString(R.string.server_error));
+                                break;
+                        }
+                    } else {
+                        onSyncFailure(taskId, getString(R.string.server_error));
+                    }
+                } else {
+                    onSyncFailure(taskId, getString(R.string.server_error));
+                }
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncFailure(int taskId, String message) {
+                Utilities.hideSoftInputKeypad(editProfileActivity);
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncProgressUpdate(String message) {
+
+            }
+        };
+        et_login_name.setText(login.getName());
+        et_login_current_password.setText(login.getPassword());
+        et_login_email.setText(login.getEmail());
+        et_login_mob_num.setText(login.getPhone());
     }
 
     @Override
     public void onClick(View v) {
-        ((ClickListner) getActivity()).getClick(true);
+        switch (v.getId()) {
+            case R.id.btn_save:
+
+                mUtilities.showProgressDialog(getString(R.string.please_wait));
+                syncManager = new SyncManager(editProfileActivity, SyncManager.EDIT_PROFILE, syncListener);
+                syncManager.editProfile(login.getCust_id(), "", et_login_name.getText().toString().trim(), sp_apna_service_categories.getSelectedItem().toString(),
+                        et_login_mob_num.getText().toString().trim(), login.getEmail(), et_login_email.getText().toString().trim(),
+                        et_login_current_password.getText().toString().trim(), et_login_new_password.getText().toString().trim());
+                break;
+        }
     }
 }
