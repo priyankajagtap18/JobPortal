@@ -1,10 +1,13 @@
 package com.jobportal.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.jobportal.R;
@@ -17,12 +20,13 @@ import com.jobportal.helpers.Utilities;
  * Created by PravinK on 05-06-2017.
  */
 
-public class AdDetailsActivity extends AppCompatActivity {
+public class AdDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context mContext;
     private Utilities mUtilities;
     private Toolbar mToolbar;
     private TextView mTvTitle;
+    private AppCompatImageView toolbar_iv_edit_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class AdDetailsActivity extends AppCompatActivity {
         mUtilities = new Utilities(mContext);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvTitle = (TextView) mToolbar.findViewById(R.id.tv_title);
+        toolbar_iv_edit_profile = (AppCompatImageView) mToolbar.findViewById(R.id.toolbar_iv_edit_profile);
         setSupportActionBar(mToolbar);
 
         if (getSupportActionBar() != null) {
@@ -48,6 +53,8 @@ public class AdDetailsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
+
+        toolbar_iv_edit_profile.setOnClickListener(this);
     }
 
     public void setTitle(String title) {
@@ -66,5 +73,16 @@ public class AdDetailsActivity extends AppCompatActivity {
             onBackPressed();
         }
         return super.onOptionsItemSelected(menuItem);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.toolbar_iv_edit_profile:
+                Intent intent=new Intent(this,EditAdsActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 }

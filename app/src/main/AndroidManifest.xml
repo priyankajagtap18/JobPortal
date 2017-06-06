@@ -25,7 +25,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -90,8 +94,7 @@
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
-        </activity>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize"></activity>
         <activity
             android:name="com.jobportal.activities.PinToTopActivity"
             android:configChanges="keyboard|screenSize|orientation"
@@ -113,19 +116,12 @@
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
-        </activity>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize"></activity>
         <activity
             android:name="com.jobportal.activities.NotificationActivity"
             android:configChanges="keyboard|screenSize|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden|adjustResize"></activity>
     </application>
 </manifest>

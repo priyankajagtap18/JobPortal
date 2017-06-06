@@ -1,5 +1,6 @@
 package com.jobportal.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jobportal.R;
+import com.jobportal.activities.AdDetailsActivity;
 import com.jobportal.activities.AdListActivity;
 import com.jobportal.activities.AdsPostActivity;
 import com.jobportal.adapters.AdsAdapter;
@@ -74,9 +76,8 @@ public class AdListFragment extends Fragment  {
                 @Override
                 public void getAdapterResponse(Bundle bundle) {
                     if (bundle != null) {
-                      //  aList.get(bundle.getInt(AppConstants.ADAPTER_POSITION));
-
-
+                        Intent intent=new Intent(getActivity(), AdDetailsActivity.class);
+                        startActivity(intent);
                     }
                 }
             });
