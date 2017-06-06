@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/img"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/skip_pager_img2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/img"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/tvMediumBoldBlack"
+            android:layout_width="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_height="wrap_content"
+            android:text="Introducing App of the week" />
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/tvMediumBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:text="Get exclusive deals on featured partner apps!" />
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/tvMediumLightGray"
+            android:layout_width="wrap_content"
+            android:layout_margin="3dp"
+            android:layout_height="wrap_content"
+            android:text="Mar 01 04:07 PM" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

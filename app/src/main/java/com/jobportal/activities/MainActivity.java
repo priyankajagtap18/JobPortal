@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // private TopRoleAdapter adapter;
     // private RecyclerView mRvRoles;
     private RelativeLayout rel_profile;
-    private TextView tv_ads, tv_shortlisted_ads;
+    private TextView tv_ads, tv_shortlisted_ads,tv_notifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setListeners() {
         tv_ads.setOnClickListener(this);
         tv_shortlisted_ads.setOnClickListener(this);
+        tv_notifications.setOnClickListener(this);
     }
 
     private void bindControls() {
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         rel_profile = (RelativeLayout) findViewById(R.id.rel_profile);
         tv_ads = (TextView) mNavigationView.findViewById(R.id.tv_ads);
         tv_shortlisted_ads = (TextView) mNavigationView.findViewById(R.id.tv_shortlisted_ads);
+        tv_notifications = (TextView) mNavigationView.findViewById(R.id.tv_notifications);
         //mRvRoles = (RecyclerView) mNavigationView.findViewById(R.id.rv_category);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
 //        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -179,6 +181,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.tv_shortlisted_ads:
                 intent = new Intent(this, AdListActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_notifications:
+                intent = new Intent(this,MessagesAndNotificationActivity.class);
                 startActivity(intent);
                 break;
         }
