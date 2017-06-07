@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.jobportal.constants.AppUrls;
 import com.jobportal.entities.AllJob;
+import com.jobportal.entities.City;
 import com.jobportal.entities.EditProfile;
 import com.jobportal.entities.Login;
 import com.jobportal.entities.MyAccount;
@@ -24,7 +25,8 @@ public class SyncManager implements DownloadListener, ParseListener {
     private SyncListener listener;
     private int type;
     private Utilities utilities;
-    public static final int ALL_JOBS = 1, REGISTRATION = 2, REGISTRATION_CHECK = 3, LOGIN = 4, GET_REGISTRATION_OTP = 5, MY_ACCOUNT = 6, EDIT_PROFILE = 7;
+    public static final int ALL_JOBS = 1, REGISTRATION = 2, REGISTRATION_CHECK = 3, LOGIN = 4, GET_REGISTRATION_OTP = 5, MY_ACCOUNT = 6,
+            EDIT_PROFILE = 7, CITY = 8, CHECK_CITY_UPDATE = 9, CHECK_JOB_UPDATE = 10;
 
 
     public SyncManager(Context context, int type, SyncListener listener) {
@@ -58,37 +60,6 @@ public class SyncManager implements DownloadListener, ParseListener {
 
     }
 
-
-    /*
-       public void getChannelSponsors(String strChannelId) {
-
-           System.out.println("====strChannelId = [" + strChannelId + "]");
-           AsyncHttpClient client = new AsyncHttpClient();
-           client.setTimeout(120000);
-           ArrayList<ChannelSponsor> arrResult = new ArrayList<>();
-           RequestParams requestParams = new RequestParams();
-           requestParams.add("ChannelID", strChannelId);
-           client.get(ITuluntulu.URL_Base + ITuluntulu.sp_Channel_Sponsors, requestParams, new DownloadHandler(GET_CHANNEL_SPONSORS, SyncManager.this, arrResult));
-
-       }
-       public void postChannelViewer(String strDeviceId, String channelId) {
-           AsyncHttpClient client = new AsyncHttpClient();
-           ArrayList<String> arrResult = new ArrayList<String>();
-           StringEntity entity;
-           JSONObject jparams = new JSONObject();
-           try {
-               jparams.put("DeviceId", strDeviceId);
-               jparams.put("Channelid", channelId);
-               jparams.put("Platform", "Android");
-               entity = new StringEntity(jparams.toString());
-               entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-               client.post(context, ITuluntulu.URL_Base + ITuluntulu.sp_PostChannelViewer, entity, "application/json", new DownloadHandler(POST_CHANNEL_VIEWER, SyncManager.this, arrResult));
-           } catch (JSONException e) {
-               e.printStackTrace();
-           } catch (UnsupportedEncodingException e) {
-               e.printStackTrace();
-           }
-       }*/
     public void getAllJobs() {
 
         AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
@@ -105,7 +76,7 @@ public class SyncManager implements DownloadListener, ParseListener {
         client.setTimeout(120000);
         ArrayList<String> arrResult = new ArrayList<>();
         RequestParams requestParams = new RequestParams();
-        requestParams.add("sign_up_step1", "1");
+        requestParams.add("sign_up_step2", "1");
         requestParams.add("mobile", mobile);
         requestParams.add("name", name);
         requestParams.add("email", email);
@@ -174,5 +145,32 @@ public class SyncManager implements DownloadListener, ParseListener {
         requestParams.add("password", passwordChange);
         requestParams.add("current_password", password);
         client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(EDIT_PROFILE, SyncManager.this, arrResult));
+    }
+
+    public void getAllCity() {
+        AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
+        client.setTimeout(120000);
+        ArrayList<City> arrResult = new ArrayList<>();
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("all_cities", "1");
+        client.post(context, AppUrls.sALLJobsURL, requestParams, new DownloadHandler(CITY, SyncManager.this, arrResult));
+    }
+
+    public void checkCityUpdate() {
+        AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
+        client.setTimeout(120000);
+        ArrayList<String> arrResult = new ArrayList<>();
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("check_city_update", "1");
+        client.post(context, AppUrls.sALLJobsURL, requestParams, new DownloadHandler(CHECK_CITY_UPDATE, SyncManager.this, arrResult));
+    }
+
+    public void checkJobUpdate() {
+        AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
+        client.setTimeout(120000);
+        ArrayList<String> arrResult = new ArrayList<>();
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("check_job_update", "1");
+        client.post(context, AppUrls.sALLJobsURL, requestParams, new DownloadHandler(CHECK_JOB_UPDATE, SyncManager.this, arrResult));
     }
 }

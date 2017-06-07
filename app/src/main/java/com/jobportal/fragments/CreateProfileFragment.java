@@ -2,18 +2,25 @@ package com.jobportal.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.jobportal.R;
+import com.jobportal.databases.DatabaseHelper;
 import com.jobportal.helpers.Utilities;
+
+import java.util.ArrayList;
 
 /**
  * Created by pita on 5/24/2017.
  */
 public class CreateProfileFragment extends Fragment {
     private Utilities mUtilities;
+    private AppCompatSpinner sp_city;
+    private DatabaseHelper databaseHelper;
 
     public CreateProfileFragment() {
         // Required empty public constructor
@@ -30,6 +37,7 @@ public class CreateProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        databaseHelper = DatabaseHelper.getInstance(getActivity());
         if (getArguments() != null) {
         }
     }
@@ -45,6 +53,16 @@ public class CreateProfileFragment extends Fragment {
 
     private void bindControls(View mRootView) {
         mUtilities = new Utilities(getActivity());
+        sp_city = (AppCompatSpinner) mRootView.findViewById(R.id.sp_city);
+        ArrayList<String> cities = databaseHelper.getAllCity();
+        setCityAdapter(cities);
     }
 
+    private void setCityAdapter(ArrayList<String> cities) {
+        if (cities != null) {
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, cities); //selected item will look like a spinner set from XML
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            sp_city.setAdapter(spinnerArrayAdapter);
+        }
+    }
 }

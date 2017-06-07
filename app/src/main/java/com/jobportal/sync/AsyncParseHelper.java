@@ -5,8 +5,11 @@ import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 import com.jobportal.R;
+import com.jobportal.constants.DBConstants;
+import com.jobportal.databases.DatabaseHelper;
 import com.jobportal.entities.AllJob;
 import com.jobportal.entities.Authenticate;
+import com.jobportal.entities.City;
 import com.jobportal.entities.EditProfile;
 import com.jobportal.entities.Login;
 import com.jobportal.entities.MyAccount;
@@ -50,31 +53,15 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                         JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
                         AllJob allJobs = new Gson().fromJson(object.toString(), AllJob.class);
                         jobs = new ArrayList<AllJob>(Arrays.asList(allJobs));
+                        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
+                        databaseHelper.deleteRecord(DBConstants.TableJobCategory, null, null);
+                        for (String jobname : jobs.get(0).getJobCategories()) {
+                            databaseHelper.insertJobCategory(jobname);
+                        }
                     }
 
                     arrResult = jobs;
-                  /*  Channel channel = new Channel(context);
-                    ArrayList<Channel> alChannel = new ArrayList<Channel>();
-                    try {
-                        channel.deleteAllRecords(DatabaseHandler.TABLE_CHANNEL);
-                    } catch (Exception e) {
-                    }
-                    if (response != null) {
-                        Channel[] channels = new Gson().fromJson(response, Channel[].class);
 
-                        if (channels != null) {
-                            int csize = channels.length;
-                            if (csize > 0)
-                                for (int i = 0; i < csize; i++) {
-                                    if (channels[i].getIsActive().equalsIgnoreCase("True")) {
-                                        channel.insertRecord(channels[i], DatabaseHandler.TABLE_CHANNEL);
-                                        alChannel.add(channels[i]);
-                                    }
-                                }
-                        }
-
-                    }
-                    arrResult = alChannel;*/
                     break;
                 case SyncManager.REGISTRATION_CHECK:
                     if (response != null) {
@@ -123,17 +110,18 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                     }
                     break;
                 case SyncManager.REGISTRATION:
-                    ArrayList<String> register = new ArrayList<>();
+                    result = new ArrayList<>();
                     if (response != null) {
-
+                        Authenticate authenticate = new Authenticate();
                         if (isDataPresent(response)) {
                             JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                            //result.add(object.getString("otp"));
+                            authenticate.setValue(object.getString("acccount_create"));
                         } else {
                             JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                            // result.add(object.getString("error"));
+                            authenticate.setMessage(object.toString());
                         }
-                        arrResult = register;
+                        result.add(authenticate);
+                        arrResult = result;
                     }
                     break;
                 case SyncManager.MY_ACCOUNT:
@@ -166,6 +154,41 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                         arrResult = editProfiles;
                     }
                     break;
+                case SyncManager.CITY:
+                    ArrayList<City> cities = new ArrayList<>();
+                    if (response != null) {
+
+                        if (isDataPresent(response)) {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            City city = new Gson().fromJson(object.toString(), City.class);
+                            cities.add(city);
+                            DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
+                            databaseHelper.deleteRecord(DBConstants.TableCity, null, null);
+                            for (String cityname : cities.get(0).getAllCities()) {
+                                databaseHelper.insertCity(cityname);
+                            }
+                        } else {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            // result.add(object.getString("error"));
+                        }
+                        arrResult = cities;
+                    }
+                    break;
+                case SyncManager.CHECK_CITY_UPDATE:
+                case SyncManager.CHECK_JOB_UPDATE:
+                    if (response != null) {
+                        ArrayList<String> list = new ArrayList<>();
+                        if (isDataPresent(response)) {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            list.add(object.getString("updates"));
+                        } else {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            list.add(object.getString("error"));
+                        }
+                        arrResult = list;
+                    }
+                    break;
+
                 default:
                     break;
             }

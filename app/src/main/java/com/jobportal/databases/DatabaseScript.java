@@ -1,12 +1,15 @@
 package com.jobportal.databases;
 
+
+import com.jobportal.constants.DBConstants;
+
 import java.util.ArrayList;
 
 /**
  * Created by PriyankaJ on 09-03-2016.
  */
-class DatabaseScript {
-    private DatabaseHelper databaseHelper;
+public class DatabaseScript {
+    DatabaseHelper databaseHelper;
 
     public DatabaseScript(DatabaseHelper databaseHelper) {
         this.databaseHelper = databaseHelper;
@@ -14,16 +17,20 @@ class DatabaseScript {
     }
 
     public void executeScript() {
-        //New tables for Qatar Steel.
         TableCreator tableCreator = new TableCreator();
-        //tableCreator.setTableName(DBConstants.TableAdvanceShipmentNotice);
+        tableCreator.setTableName(DBConstants.TableCity);
         ArrayList<ColumnCreator> columnCreatorArrayList = new ArrayList<>();
-      /*  columnCreatorArrayList.add(getColumnCreator(DBConstants.orderQuantityUom, ColumnDataType.TEXT, null, false, false));
-        columnCreatorArrayList.add(getColumnCreator(DBConstants.headerId, ColumnDataType.TEXT, null, false, false));
-        columnCreatorArrayList.add(getColumnCreator(DBConstants.creationDate, ColumnDataType.TEXT, null, false, false));
-        columnCreatorArrayList.add(getColumnCreator(DBConstants.shipNoticeUserName, ColumnDataType.TEXT, null, false, false));*/
+        columnCreatorArrayList.add(getColumnCreator(DBConstants.cityname, ColumnDataType.TEXT, null, false, false));
         tableCreator.setColumnCreatorArrayList(columnCreatorArrayList);
         createTable(tableCreator);
+
+        tableCreator = new TableCreator();
+        tableCreator.setTableName(DBConstants.TableJobCategory);
+        columnCreatorArrayList = new ArrayList<>();
+        columnCreatorArrayList.add(getColumnCreator(DBConstants.jobname, ColumnDataType.TEXT, null, false, false));
+        tableCreator.setColumnCreatorArrayList(columnCreatorArrayList);
+        createTable(tableCreator);
+
     }
 
     /**
@@ -36,7 +43,7 @@ class DatabaseScript {
      * @param bNotNull whether it null or not
      * @return
      */
-    private ColumnCreator getColumnCreator(String name, ColumnDataType type, String value, boolean bPrimary, boolean bNotNull) {
+    ColumnCreator getColumnCreator(String name, ColumnDataType type, String value, boolean bPrimary, boolean bNotNull) {
         ColumnCreator columnCreator = new ColumnCreator();
         columnCreator.setColumnName(name);
         columnCreator.setColumnDataType(type);
@@ -53,5 +60,6 @@ class DatabaseScript {
             e.printStackTrace();
         }
     }
+
 
 }

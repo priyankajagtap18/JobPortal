@@ -7,10 +7,12 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.jobportal.R;
 import com.jobportal.activities.EditProfileActivity;
 import com.jobportal.constants.AppConstants;
+import com.jobportal.databases.DatabaseHelper;
 import com.jobportal.entities.EditProfile;
 import com.jobportal.entities.Login;
 import com.jobportal.helpers.PreferenceHandler;
@@ -33,6 +35,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
     private AppCompatEditText et_login_name, et_login_mob_num, et_login_email, et_login_current_password, et_login_new_password;
     private AppCompatSpinner sp_apna_service_categories;
     private Login login;
+    private DatabaseHelper databaseHelper;
 
     public EditProfileFragment() {
         // Required empty public constructor
@@ -49,6 +52,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         editProfileActivity = (EditProfileActivity) getActivity();
+        databaseHelper = DatabaseHelper.getInstance(editProfileActivity);
         if (getArguments() != null) {
         }
     }
@@ -83,6 +87,11 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                             case SyncManager.EDIT_PROFILE:
                                 ArrayList<EditProfile> arrayList = (ArrayList<EditProfile>) arrResult;
                                 mUtilities.showToast("Profile updated successfully");
+                                getActivity().getSupportFragmentManager().popBackStackImmediate();
+                                break;
+                            case SyncManager.CITY:
+                                ArrayList<String> cities = databaseHelper.getAllCity();
+                                setCityAdapter(cities);
                                 break;
                             default:
                                 onSyncFailure(taskId, getString(R.string.server_error));
@@ -100,6 +109,7 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
             @Override
             public void onSyncFailure(int taskId, String message) {
                 Utilities.hideSoftInputKeypad(editProfileActivity);
+                mUtilities.showToast(message);
                 mUtilities.hideProgressDialog();
             }
 
@@ -108,22 +118,46 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
 
             }
         };
-        et_login_name.setText(login.getName());
-        et_login_current_password.setText(login.getPassword());
-        et_login_email.setText(login.getEmail());
-        et_login_mob_num.setText(login.getPhone());
+        if (login != null) {
+            et_login_name.setText(login.getName());
+            et_login_current_password.setText(login.getPassword());
+            et_login_email.setText(login.getEmail());
+            et_login_mob_num.setText(login.getPhone());
+        }
+        ArrayList<String> cities = databaseHelper.getAllCity();
+        if (cities != null) {
+            setCityAdapter(cities);
+        } else {
+            getAllCities();
+        }
+    }
+
+    private void setCityAdapter(ArrayList<String> cities) {
+        if (cities != null) {
+            ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(editProfileActivity, android.R.layout.simple_spinner_item, cities); //selected item will look like a spinner set from XML
+            spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            sp_apna_service_categories.setAdapter(spinnerArrayAdapter);
+        }
+    }
+
+    private void getAllCities() {
+        mUtilities.showProgressDialog(getString(R.string.please_wait));
+        syncManager = new SyncManager(editProfileActivity, SyncManager.CITY, syncListener);
+        syncManager.getAllCity();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_save:
+                if (login != null) {
+                    mUtilities.showProgressDialog(getString(R.string.please_wait));
+                    syncManager = new SyncManager(editProfileActivity, SyncManager.EDIT_PROFILE, syncListener);
+                    syncManager.editProfile(login.getCust_id(), "", et_login_name.getText().toString().trim(), sp_apna_service_categories.getSelectedItem().toString(),
+                            et_login_mob_num.getText().toString().trim(), login.getEmail(), et_login_email.getText().toString().trim(),
+                            et_login_current_password.getText().toString().trim(), et_login_new_password.getText().toString().trim());
 
-                mUtilities.showProgressDialog(getString(R.string.please_wait));
-                syncManager = new SyncManager(editProfileActivity, SyncManager.EDIT_PROFILE, syncListener);
-                syncManager.editProfile(login.getCust_id(), "", et_login_name.getText().toString().trim(), sp_apna_service_categories.getSelectedItem().toString(),
-                        et_login_mob_num.getText().toString().trim(), login.getEmail(), et_login_email.getText().toString().trim(),
-                        et_login_current_password.getText().toString().trim(), et_login_new_password.getText().toString().trim());
+                }
                 break;
         }
     }

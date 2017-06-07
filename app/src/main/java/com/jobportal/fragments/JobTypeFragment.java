@@ -13,11 +13,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.jobportal.R;
+import com.jobportal.activities.MainActivity;
 import com.jobportal.adapters.JobListAdapter;
 import com.jobportal.constants.AppConstants;
+import com.jobportal.databases.DatabaseHelper;
 import com.jobportal.entities.TopRoles;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.listeners.AdapterResponseInterface;
+import com.jobportal.sync.SyncListener;
+import com.jobportal.sync.SyncManager;
 
 import java.util.ArrayList;
 
@@ -30,6 +34,9 @@ public class JobTypeFragment extends Fragment implements View.OnClickListener {
     private RecyclerView mRvJobList;
     private Utilities mUtilities;
     private ArrayList<TopRoles> alRoles;
+    private SyncListener syncListener;
+    private SyncManager syncManager;
+    private MainActivity mainActivity;
 
 
     public JobTypeFragment() {
@@ -47,6 +54,7 @@ public class JobTypeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = (MainActivity) getActivity();
         if (getArguments() != null) {
         }
     }
@@ -69,6 +77,69 @@ public class JobTypeFragment extends Fragment implements View.OnClickListener {
         mRvJobList.setLayoutManager(layoutManager);
         mRootView.findViewById(R.id.tv_create_profile).setOnClickListener(this);
         mRootView.findViewById(R.id.tv_sort).setOnClickListener(this);
+        syncListener = new SyncListener() {
+            @Override
+            public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
+                Utilities.hideSoftInputKeypad(mainActivity);
+                if (arrResult != null) {
+                    if (arrResult.size() > 0) {
+                        switch (taskId) {
+                            case SyncManager.CITY:
+
+                                break;
+                            case SyncManager.CHECK_CITY_UPDATE:
+                                ArrayList<String> arrayList = (ArrayList<String>) arrResult;
+                                if (arrayList.get(0).equalsIgnoreCase("1")) {
+                                    getAllCities();
+                                }
+                                MainActivity.isCityAPICalledOnce = true;
+                                break;
+                            default:
+                                onSyncFailure(taskId, getString(R.string.server_error));
+                        }
+                    } else {
+                        onSyncFailure(taskId, getString(R.string.server_error));
+                    }
+                } else {
+                    onSyncFailure(taskId, getString(R.string.server_error));
+                }
+
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncFailure(int taskId, String message) {
+                Utilities.hideSoftInputKeypad(mainActivity);
+                mUtilities.showToast(message);
+                mUtilities.hideProgressDialog();
+            }
+
+            @Override
+            public void onSyncProgressUpdate(String message) {
+
+            }
+        };
+
+        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(mainActivity);
+        if (databaseHelper.getAllCity() == null) {
+            getAllCities();
+        }
+        callCheckCityUpdateAPI();
+    }
+
+
+    private void callCheckCityUpdateAPI() {
+        if (!MainActivity.isCityAPICalledOnce) {
+            mUtilities.showProgressDialog(getString(R.string.please_wait));
+            syncManager = new SyncManager(mainActivity, SyncManager.CHECK_CITY_UPDATE, syncListener);
+            syncManager.checkCityUpdate();
+        }
+    }
+
+    private void getAllCities() {
+        mUtilities.showProgressDialog(getString(R.string.please_wait));
+        syncManager = new SyncManager(mainActivity, SyncManager.CITY, syncListener);
+        syncManager.getAllCity();
     }
 
     private void setRolesAdapter() {

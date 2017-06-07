@@ -1,6 +1,6 @@
 package com.jobportal.databases;
 
-class ColumnCreator
+public class ColumnCreator
 {
     private String ColumnName;
     private ColumnDataType ColumnDataType;

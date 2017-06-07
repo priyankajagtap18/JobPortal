@@ -75,7 +75,7 @@
                     android:hint="Enter Mobile number or Email"
                     android:inputType="number"
                     android:maxLength="12"
-                    android:text="9673060220" />
+                    android:text="" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -95,7 +95,7 @@
                     android:hint="Enter Password"
                     android:inputType="textPassword"
                     android:maxLength="40"
-                    android:text="test@123" />
+                    android:text="" />
 
             </android.support.design.widget.TextInputLayout>
 

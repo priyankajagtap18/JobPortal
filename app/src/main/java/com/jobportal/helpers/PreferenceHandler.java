@@ -79,4 +79,10 @@ public class PreferenceHandler {
     public static Editor getEditor(Context context) {
         return getPreferences(context).edit();
     }
+
+    public static void clearPreferenec(Context context) {
+        SharedPreferences.Editor editor = getPreferences(context).edit();
+        editor.clear();
+        editor.commit();
+    }
 }

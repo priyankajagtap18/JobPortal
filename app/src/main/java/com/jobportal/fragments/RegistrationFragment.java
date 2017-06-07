@@ -94,6 +94,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
             @Override
             public void onSyncFailure(int taskId, String message) {
                 Utilities.hideSoftInputKeypad(mainActivity);
+                mUtilities.showToast(message);
                 mUtilities.hideProgressDialog();
             }
 

@@ -1,6 +1,6 @@
 package com.jobportal.databases;
 
-class DatabaseHelperException extends Exception
+public class DatabaseHelperException extends Exception
 {
 
     /**

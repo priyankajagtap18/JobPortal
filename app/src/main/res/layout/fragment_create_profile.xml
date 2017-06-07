@@ -99,8 +99,7 @@
                 style="@style/spinnerGrayTHintColor"
                 android:layout_marginBottom="6dp"
                 android:layout_marginTop="6dp"
-                android:dropDownVerticalOffset="25dp"
-                android:entries="@array/arr_cities" />
+                android:dropDownVerticalOffset="25dp" />
 
             <View
                 android:layout_width="match_parent"

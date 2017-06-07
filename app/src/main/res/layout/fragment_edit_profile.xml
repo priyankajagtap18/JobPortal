@@ -41,8 +41,7 @@
             android:layout_marginTop="17dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:dropDownVerticalOffset="25dp"
-            android:entries="@array/arr_cities" />
+            android:dropDownVerticalOffset="25dp" />
 
         <View
             android:layout_width="match_parent"

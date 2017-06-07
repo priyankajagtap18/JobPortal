@@ -99,6 +99,7 @@ public class MyAccountFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onSyncFailure(int taskId, String message) {
                 Utilities.hideSoftInputKeypad(profileActivity);
+                mUtilities.showToast(message);
                 mUtilities.hideProgressDialog();
             }
 
@@ -108,13 +109,15 @@ public class MyAccountFragment extends Fragment implements View.OnClickListener 
             }
         };
         Login login = (Login) PreferenceHandler.readObject(profileActivity, AppConstants.PREF_LOGIN, null, Login.class);
-        mUtilities.showProgressDialog(getString(R.string.please_wait));
-        syncManager = new SyncManager(profileActivity, SyncManager.MY_ACCOUNT, syncListener);
-        syncManager.getMyAccount(login.getCust_id());
+        if (login != null) {
+            mUtilities.showProgressDialog(getString(R.string.please_wait));
+            syncManager = new SyncManager(profileActivity, SyncManager.MY_ACCOUNT, syncListener);
+            syncManager.getMyAccount(login.getCust_id());
 
-        tvName.setText(login.getName());
-        tvEmail.setText(login.getEmail());
-        tvMobile.setText(login.getPhone());
+            tvName.setText(login.getName());
+            tvEmail.setText(login.getEmail());
+            tvMobile.setText(login.getPhone());
+        }
     }
 
     private void setValues(MyAccount myAccount) {

@@ -12,6 +12,7 @@ import com.jobportal.R;
 import com.jobportal.activities.MainActivity;
 import com.jobportal.adapters.TopRoleAdapter;
 import com.jobportal.constants.AppConstants;
+import com.jobportal.databases.DatabaseHelper;
 import com.jobportal.entities.AllJob;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.listeners.AdapterResponseInterface;
@@ -30,6 +31,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private SyncManager syncManager;
     private SyncListener syncListener;
     private MainActivity mainActivity;
+    private DatabaseHelper databaseHelper;
 
     public FragmentHome() {
         // Required empty public constructor
@@ -47,6 +49,8 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainActivity = (MainActivity) getActivity();
+        mUtilities = new Utilities(mainActivity);
+        databaseHelper = DatabaseHelper.getInstance(mainActivity);
         if (getArguments() != null) {
         }
     }
@@ -61,7 +65,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     }
 
     private void bindControls(View mRootView) {
-        mUtilities = new Utilities(getActivity());
+
         mRvRoles = (RecyclerView) mRootView.findViewById(R.id.rv_top_roles);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -76,14 +80,32 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             @Override
             public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
                 Utilities.hideSoftInputKeypad(mainActivity);
-                if (taskId == SyncManager.ALL_JOBS) {
-                    ArrayList<AllJob> arrayList = (ArrayList<AllJob>) arrResult;
+                if (arrResult != null) {
+                    if (arrResult.size() > 0) {
+                        switch (taskId) {
+                            case SyncManager.ALL_JOBS:
+                                alRoles = (ArrayList<String>) arrResult;
+                                setRolesAdapter();
 
-                    if (arrayList != null && arrayList.size() > 0) {
-                        alRoles = arrayList.get(0).getJobCategories();
-                        setRolesAdapter();
-                    } else {
-                        onSyncFailure(taskId, getString(R.string.server_error));
+                                break;
+                            case SyncManager.CHECK_JOB_UPDATE:
+                                ArrayList<String> arrayList = (ArrayList<String>) arrResult;
+                                if (arrayList.get(0).equalsIgnoreCase("1")) {
+                                    callGetAllCityAPI();
+                                }
+                                MainActivity.isJobCategoryAPICalledOnce = true;
+                                break;
+                        }
+                        if (taskId == SyncManager.ALL_JOBS) {
+                            ArrayList<AllJob> arrayList = (ArrayList<AllJob>) arrResult;
+
+                            if (arrayList != null && arrayList.size() > 0) {
+                                alRoles = arrayList.get(0).getJobCategories();
+                                setRolesAdapter();
+                            } else {
+                                onSyncFailure(taskId, getString(R.string.server_error));
+                            }
+                        }
                     }
                 } else {
                     onSyncFailure(taskId, getString(R.string.server_error));
@@ -94,6 +116,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
             @Override
             public void onSyncFailure(int taskId, String message) {
                 Utilities.hideSoftInputKeypad(mainActivity);
+                mUtilities.showToast(message);
                 mUtilities.hideProgressDialog();
             }
 
@@ -102,17 +125,26 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
             }
         };
-
-        callAPI();
-    }
-
-    private void callAPI() {
-        if (alRoles == null || alRoles.size() == 0) {
-            mUtilities.showProgressDialog(getString(R.string.please_wait));
-            syncManager = new SyncManager(mainActivity, SyncManager.ALL_JOBS, syncListener);
-            syncManager.getAllJobs();
+        callCheckJobUpdateAPI();
+        alRoles = databaseHelper.getAllJobCategory();
+        if (alRoles == null) {
+            callGetAllCityAPI();
         } else {
             setRolesAdapter();
+        }
+    }
+
+    private void callGetAllCityAPI() {
+        mUtilities.showProgressDialog(getString(R.string.please_wait));
+        syncManager = new SyncManager(mainActivity, SyncManager.ALL_JOBS, syncListener);
+        syncManager.getAllJobs();
+    }
+
+    private void callCheckJobUpdateAPI() {
+        if (!MainActivity.isJobCategoryAPICalledOnce) {
+            mUtilities.showProgressDialog(getString(R.string.please_wait));
+            syncManager = new SyncManager(mainActivity, SyncManager.CHECK_JOB_UPDATE, syncListener);
+            syncManager.checkJobUpdate();
         }
     }
 

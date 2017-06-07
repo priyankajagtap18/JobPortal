@@ -2,7 +2,7 @@ package com.jobportal.databases;
 
 import java.util.ArrayList;
 
-class TableCreator
+public class TableCreator
 {
     private String TableName;
     private ArrayList<ColumnCreator> columnCreatorArrayList;

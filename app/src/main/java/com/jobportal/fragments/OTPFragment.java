@@ -1,6 +1,5 @@
 package com.jobportal.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jobportal.R;
-import com.jobportal.activities.MainActivity;
 import com.jobportal.activities.RegistrationAct;
+import com.jobportal.entities.Authenticate;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.sync.SyncListener;
 import com.jobportal.sync.SyncManager;
@@ -67,13 +66,19 @@ public class OTPFragment extends Fragment implements View.OnClickListener {
             public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
                 Utilities.hideSoftInputKeypad(registrationAct);
                 if (arrResult != null) {
-                    /*if (arrResult.size() > 0) */
-                    {
+                    if (arrResult.size() > 0) {
                         if (taskId == SyncManager.REGISTRATION) {
-                            //ArrayList<String> arrayList = (ArrayList<String>) arrResult;
-                            startActivity(new Intent(registrationAct, MainActivity.class));
+                            ArrayList<Authenticate> arrayList = (ArrayList<Authenticate>) arrResult;
+                            if (!arrayList.get(0).getValue().isEmpty()) {
+                                mUtilities.showToast("Registration successful. Please login to continue.");
+                                registrationAct.finish();
+                            } else {
+                                onSyncFailure(taskId, arrayList.get(0).getMessage());
+                            }
 
                         }
+                    } else {
+                        onSyncFailure(taskId, getString(R.string.server_error));
                     }
                 } else {
                     onSyncFailure(taskId, getString(R.string.server_error));
@@ -84,6 +89,7 @@ public class OTPFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSyncFailure(int taskId, String message) {
                 Utilities.hideSoftInputKeypad(registrationAct);
+                mUtilities.showToast(message);
                 mUtilities.hideProgressDialog();
             }
 
