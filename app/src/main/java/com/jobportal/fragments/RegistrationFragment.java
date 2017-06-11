@@ -80,6 +80,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                         bundle.putString("mobile", mobile);
                         bundle.putString("email", email);
                         bundle.putString("password", password);
+                        bundle.putString("OTP", arrayList.get(0));
                         ((ClickListner) getActivity()).getClick(true, bundle);
                     } else {
                         onSyncFailure(taskId, arrayList.get(0));

@@ -2,12 +2,14 @@ package com.jobportal.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jobportal.R;
 import com.jobportal.activities.RegistrationAct;
+import com.jobportal.constants.AppConstants;
 import com.jobportal.entities.Authenticate;
 import com.jobportal.helpers.Utilities;
 import com.jobportal.sync.SyncListener;
@@ -21,8 +23,9 @@ import java.util.ArrayList;
 
 public class OTPFragment extends Fragment implements View.OnClickListener {
 
+    private AppCompatEditText et_otp;
     private Utilities mUtilities;
-    private String name, mobile, email, password;
+    private String name, mobile, email, password,OTP;
     private SyncManager syncManager;
     private SyncListener syncListener;
     private RegistrationAct registrationAct;
@@ -47,6 +50,7 @@ public class OTPFragment extends Fragment implements View.OnClickListener {
             mobile = getArguments().getString("mobile");
             email = getArguments().getString("email");
             password = getArguments().getString("password");
+            OTP = getArguments().getString("OTP");
         }
     }
 
@@ -61,6 +65,7 @@ public class OTPFragment extends Fragment implements View.OnClickListener {
     private void bindControls(View mRootView) {
         mUtilities = new Utilities(getActivity());
         mRootView.findViewById(R.id.btn_register).setOnClickListener(this);
+        et_otp=(AppCompatEditText)mRootView.findViewById(R.id.et_otp);
         syncListener = new SyncListener() {
             @Override
             public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
@@ -104,9 +109,16 @@ public class OTPFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_register:
-                mUtilities.showProgressDialog(getString(R.string.please_wait));
-                syncManager = new SyncManager(registrationAct, SyncManager.REGISTRATION, syncListener);
-                syncManager.doRegistration(name, email, mobile, password);
+                String enterOTP=et_otp.getText().toString().trim();
+                if(OTP.equalsIgnoreCase(enterOTP)) {
+                    mUtilities.showProgressDialog(getString(R.string.please_wait));
+                    syncManager = new SyncManager(registrationAct, SyncManager.REGISTRATION, syncListener);
+                    syncManager.doRegistration(name, email, mobile, password);
+                }
+                else
+                {
+                    mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new RegistrationFragment(), R.string.register, false);
+                }
                 break;
         }
     }
