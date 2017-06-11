@@ -85,8 +85,8 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                             JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
                             otp.add(object.getString("otp"));
                         } else {
-                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                            otp.add(object.getString("error"));
+                            String object = ((new JSONObject(response)).getString(context.getString(R.string.data)));
+                            otp.add(object);
                         }
                         arrResult = otp;
                     }
