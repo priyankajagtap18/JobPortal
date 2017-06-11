@@ -100,10 +100,10 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                             login.setSuccess(true);
                             logins.add(login);
                         } else {
-                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            String object = ((new JSONObject(response)).getString(context.getString(R.string.data)));
                             Login login = new Login();
                             login.setSuccess(false);
-                            login.setError(object.toString());
+                            login.setError(object);
                             logins.add(login);
                         }
                         arrResult = logins;
@@ -117,8 +117,8 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                             JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
                             authenticate.setValue(object.getString("acccount_create"));
                         } else {
-                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                            authenticate.setMessage(object.toString());
+                            String object = ((new JSONObject(response)).getString(context.getString(R.string.data)));
+                            authenticate.setMessage(object);
                         }
                         result.add(authenticate);
                         arrResult = result;
@@ -133,8 +133,8 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                             MyAccount account = new Gson().fromJson(object.toString(), MyAccount.class);
                             myAccounts.add(account);
                         } else {
-                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                            // result.add(object.getString("error"));
+                            String object = ((new JSONObject(response)).getString(context.getString(R.string.data)));
+                            // result.add(object);
                         }
                         arrResult = myAccounts;
                     }
@@ -148,8 +148,8 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                             EditProfile editProfile = new Gson().fromJson(object.toString(), EditProfile.class);
                             editProfiles.add(editProfile);
                         } else {
-                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                            // result.add(object.getString("error"));
+                            String object = ((new JSONObject(response)).getString(context.getString(R.string.data)));
+                            // result.add(object);
                         }
                         arrResult = editProfiles;
                     }
@@ -168,8 +168,8 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                                 databaseHelper.insertCity(cityname);
                             }
                         } else {
-                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                            // result.add(object.getString("error"));
+                            String object = ((new JSONObject(response)).getString(context.getString(R.string.data)));
+                            // result.add(object);
                         }
                         arrResult = cities;
                     }
@@ -182,8 +182,8 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                             JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
                             list.add(object.getString("updates"));
                         } else {
-                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
-                            list.add(object.getString("error"));
+                            String object = ((new JSONObject(response)).getString(context.getString(R.string.data)));
+                            list.add(object);
                         }
                         arrResult = list;
                     }
