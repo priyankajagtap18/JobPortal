@@ -11,6 +11,7 @@ import com.jobportal.entities.AllJob;
 import com.jobportal.entities.Authenticate;
 import com.jobportal.entities.City;
 import com.jobportal.entities.EditProfile;
+import com.jobportal.entities.GetEditProfile;
 import com.jobportal.entities.Login;
 import com.jobportal.entities.MyAccount;
 import com.jobportal.helpers.Utilities;
@@ -188,7 +189,19 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                         arrResult = list;
                     }
                     break;
+                case SyncManager.GET_EDIT_PROFILE:
+                    ArrayList<GetEditProfile> profiles = new ArrayList<>();
+                    if (isDataPresent(response)) {
+                        JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                        GetEditProfile profile = new Gson().fromJson(object.toString(), GetEditProfile.class);
+                        profiles.add(profile);
+                    } else {
 
+                    }
+
+                    arrResult = profiles;
+
+                    break;
                 default:
                     break;
             }

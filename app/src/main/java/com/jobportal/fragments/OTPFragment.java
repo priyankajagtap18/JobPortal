@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class OTPFragment extends Fragment implements View.OnClickListener {
 
     private Utilities mUtilities;
-    private String name, mobile, email, password,OTP;
+    private String name, mobile, email, password, OTP;
     private SyncManager syncManager;
     private SyncListener syncListener;
     private RegistrationAct registrationAct;
@@ -71,7 +71,7 @@ public class OTPFragment extends Fragment implements View.OnClickListener {
     private void bindControls(View mRootView) {
         mUtilities = new Utilities(getActivity());
         mRootView.findViewById(R.id.btn_register).setOnClickListener(this);
-        et_otp=(AppCompatEditText)mRootView.findViewById(R.id.et_otp);
+        et_otp = (AppCompatEditText) mRootView.findViewById(R.id.et_otp);
         syncListener = new SyncListener() {
             @Override
             public void onSyncSuccess(int taskId, String result, ArrayList<?> arrResult) {
@@ -124,14 +124,12 @@ public class OTPFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_register:
-                String enterOTP=et_otp.getText().toString().trim();
-                if(OTP.equalsIgnoreCase(enterOTP)) {
+                String enterOTP = et_otp.getText().toString().trim();
+                if (OTP.equalsIgnoreCase(enterOTP)) {
                     mUtilities.showProgressDialog(getString(R.string.please_wait));
                     syncManager = new SyncManager(registrationAct, SyncManager.REGISTRATION, syncListener);
                     syncManager.doRegistration(name, email, mobile, password);
-                }
-                else
-                {
+                } else {
                     mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, getActivity(), new RegistrationFragment(), R.string.register, false);
                 }
                 break;

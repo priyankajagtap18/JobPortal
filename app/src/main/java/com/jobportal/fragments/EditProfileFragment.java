@@ -14,6 +14,7 @@ import com.jobportal.activities.EditProfileActivity;
 import com.jobportal.constants.AppConstants;
 import com.jobportal.databases.DatabaseHelper;
 import com.jobportal.entities.EditProfile;
+import com.jobportal.entities.GetEditProfile;
 import com.jobportal.entities.Login;
 import com.jobportal.helpers.PreferenceHandler;
 import com.jobportal.helpers.Utilities;
@@ -85,6 +86,8 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                     if (arrResult.size() > 0) {
                         switch (taskId) {
                             case SyncManager.EDIT_PROFILE:
+                                login.setEmail(et_login_email.getText().toString().trim());
+                                PreferenceHandler.writeObject(editProfileActivity, AppConstants.PREF_LOGIN, login);
                                 ArrayList<EditProfile> arrayList = (ArrayList<EditProfile>) arrResult;
                                 mUtilities.showToast("Profile updated successfully");
                                 getActivity().getSupportFragmentManager().popBackStackImmediate();
@@ -92,6 +95,10 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
                             case SyncManager.CITY:
                                 ArrayList<String> cities = databaseHelper.getAllCity();
                                 setCityAdapter(cities);
+                                break;
+                            case SyncManager.GET_EDIT_PROFILE:
+                                ArrayList<GetEditProfile> editProfiles = (ArrayList<GetEditProfile>) arrResult;
+                                updateFields(editProfiles.get(0));
                                 break;
                             default:
                                 onSyncFailure(taskId, getString(R.string.server_error));
@@ -130,6 +137,20 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
         } else {
             getAllCities();
         }
+        getEditProfile();
+    }
+
+    private void getEditProfile() {
+        mUtilities.showProgressDialog(getString(R.string.please_wait));
+        syncManager = new SyncManager(editProfileActivity, SyncManager.GET_EDIT_PROFILE, syncListener);
+        syncManager.getEditProfile(login.getCust_id());
+    }
+
+    private void updateFields(GetEditProfile getEditProfile) {
+        et_login_name.setText(getEditProfile.getName());
+        et_login_current_password.setText(login.getPassword());
+        et_login_email.setText(login.getEmail());
+        et_login_mob_num.setText(getEditProfile.getMobile());
     }
 
     private void setCityAdapter(ArrayList<String> cities) {
@@ -152,9 +173,13 @@ public class EditProfileFragment extends Fragment implements View.OnClickListene
             case R.id.btn_save:
                 if (login != null) {
                     mUtilities.showProgressDialog(getString(R.string.please_wait));
+                    String emailChange = "0";
+                    if (!login.getEmail().equalsIgnoreCase(et_login_email.getText().toString().trim())) {
+                        emailChange = "1";
+                    }
                     syncManager = new SyncManager(editProfileActivity, SyncManager.EDIT_PROFILE, syncListener);
                     syncManager.editProfile(login.getCust_id(), "", et_login_name.getText().toString().trim(), sp_apna_service_categories.getSelectedItem().toString(),
-                            et_login_mob_num.getText().toString().trim(), login.getEmail(), et_login_email.getText().toString().trim(),
+                            et_login_mob_num.getText().toString().trim(), login.getEmail(), emailChange,
                             et_login_current_password.getText().toString().trim(), et_login_new_password.getText().toString().trim());
 
                 }
