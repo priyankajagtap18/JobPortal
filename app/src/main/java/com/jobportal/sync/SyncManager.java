@@ -27,7 +27,7 @@ public class SyncManager implements DownloadListener, ParseListener {
     private int type;
     private Utilities utilities;
     public static final int ALL_JOBS = 1, REGISTRATION = 2, REGISTRATION_CHECK = 3, LOGIN = 4, GET_REGISTRATION_OTP = 5, MY_ACCOUNT = 6,
-            EDIT_PROFILE = 7, CITY = 8, CHECK_CITY_UPDATE = 9, CHECK_JOB_UPDATE = 10, GET_EDIT_PROFILE = 11;
+            EDIT_PROFILE = 7, CITY = 8, CHECK_CITY_UPDATE = 9, CHECK_JOB_UPDATE = 10, GET_EDIT_PROFILE = 11, VERIFY_MOBILE = 12;
 
 
     public SyncManager(Context context, int type, SyncListener listener) {
@@ -183,5 +183,16 @@ public class SyncManager implements DownloadListener, ParseListener {
         requestParams.add("get_edit_profile", "1");
         requestParams.add("cust_id", custId);
         client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(GET_EDIT_PROFILE, SyncManager.this, arrResult));
+    }
+
+    public void verifyMobile(String custId, String mobile) {
+        AsyncHttpClient client = new AsyncHttpClient(true, 80, 443);
+        client.setTimeout(120000);
+        ArrayList<String> arrResult = new ArrayList<>();
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("sign_up_step1_varify", "1");
+        requestParams.add("cust_id", custId);
+        requestParams.add("mobile", mobile);
+        client.post(context, AppUrls.sRegisterURL, requestParams, new DownloadHandler(VERIFY_MOBILE, SyncManager.this, arrResult));
     }
 }

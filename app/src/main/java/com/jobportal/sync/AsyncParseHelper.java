@@ -202,6 +202,19 @@ public class AsyncParseHelper extends AsyncTask<String, String, ArrayList<?>> {
                     arrResult = profiles;
 
                     break;
+                case SyncManager.VERIFY_MOBILE:
+                    if (response != null) {
+                        ArrayList<String> list = new ArrayList<>();
+                        if (isDataPresent(response)) {
+                            JSONObject object = ((new JSONObject(response)).getJSONObject(context.getString(R.string.data)));
+                            list.add(object.getString("otp"));
+                        } else {
+                            String object = ((new JSONObject(response)).getString(context.getString(R.string.data)));
+                            list.add(object);
+                        }
+                        arrResult = list;
+                    }
+                    break;
                 default:
                     break;
             }

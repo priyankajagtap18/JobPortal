@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,8 @@ public class MyAccountFragment extends Fragment implements View.OnClickListener 
     private SyncManager syncManager;
     private SyncListener syncListener;
     private ProfileActivity profileActivity;
-    private AppCompatTextView tvaddPosted, tvaddResponded, tvActiveSince, tvName, tvEmail, tvMobile;
+    private AppCompatTextView tvaddPosted, tvaddResponded, tvActiveSince, tvName, tvEmail, tvMobile, tvVerify;
+    private Login login;
 
     public MyAccountFragment() {
         // Required empty public constructor
@@ -71,6 +73,8 @@ public class MyAccountFragment extends Fragment implements View.OnClickListener 
         tvName = (AppCompatTextView) mRootView.findViewById(R.id.tvName);
         tvEmail = (AppCompatTextView) mRootView.findViewById(R.id.tvEmail);
         tvMobile = (AppCompatTextView) mRootView.findViewById(R.id.tvMobile);
+        tvVerify = (AppCompatTextView) mRootView.findViewById(R.id.tvVerify);
+        tvVerify.setOnClickListener(this);
         btn_post_ad.setOnClickListener(this);
         syncListener = new SyncListener() {
             @Override
@@ -82,6 +86,13 @@ public class MyAccountFragment extends Fragment implements View.OnClickListener 
                             case SyncManager.MY_ACCOUNT:
                                 ArrayList<MyAccount> arrayList = (ArrayList<MyAccount>) arrResult;
                                 setValues(arrayList.get(0));
+                                break;
+                            case SyncManager.VERIFY_MOBILE:
+                                ArrayList<String> verifyMobile = (ArrayList<String>) arrResult;
+                                Log.i("otp", verifyMobile.get(0));
+                                Bundle bundle = new Bundle();
+                                bundle.putString("otp", verifyMobile.get(0));
+                                mUtilities.replaceFragment(AppConstants.MAIN_CONTAINER, profileActivity, new VerifyMobileOTPFragment().newInstance(bundle), R.string.hello_fragment, false);
                                 break;
                             default:
                                 onSyncFailure(taskId, getString(R.string.server_error));
@@ -108,7 +119,8 @@ public class MyAccountFragment extends Fragment implements View.OnClickListener 
 
             }
         };
-        Login login = (Login) PreferenceHandler.readObject(profileActivity, AppConstants.PREF_LOGIN, null, Login.class);
+
+        login = (Login) PreferenceHandler.readObject(profileActivity, AppConstants.PREF_LOGIN, null, Login.class);
         if (login != null) {
             mUtilities.showProgressDialog(getString(R.string.please_wait));
             syncManager = new SyncManager(profileActivity, SyncManager.MY_ACCOUNT, syncListener);
@@ -133,6 +145,15 @@ public class MyAccountFragment extends Fragment implements View.OnClickListener 
                 Intent intent = new Intent(getActivity(), AdsPostActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.tvVerify:
+                verifyMobile();
+                break;
         }
+    }
+
+    private void verifyMobile() {
+        mUtilities.showProgressDialog(getString(R.string.please_wait));
+        syncManager = new SyncManager(profileActivity, SyncManager.MY_ACCOUNT, syncListener);
+        syncManager.verifyMobile(login.getCust_id(), login.getPhone());
     }
 }
